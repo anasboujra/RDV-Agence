@@ -205,11 +205,11 @@
                                         </i>Forms Validation
                                     </a>
                                 </li>
-                                <li class="app-sidebar__heading">Charts</li>
+                                <li class="app-sidebar__heading">Publication</li>
                                 <li>
-                                    <a href="charts-chartjs.html">
+                                    <a href="publication">
                                         <i class="metismenu-icon pe-7s-graph2">
-                                        </i>ChartJS
+                                        </i>Publication
                                     </a>
                                 </li>
                                 
