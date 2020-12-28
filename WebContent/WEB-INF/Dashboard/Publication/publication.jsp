@@ -31,11 +31,16 @@
                                     <div class="d-inline-block dropdown">
                                         <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow  btn btn-info">
                                             
-                                          <a href="#">Ajouter Publication</a>  
+                                          
                                         </button>
+                                        
+ 
+                                         <a href="publication?action=modifier"> Ajouter Publication</a> 
                                          
                                     </div>
-                                </div>    </div>
+                                </div>   
+                                
+                                 </div>
                         
                         </div>            
                         

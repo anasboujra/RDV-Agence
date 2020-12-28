@@ -207,7 +207,7 @@
                                 </li>
                                 <li class="app-sidebar__heading">Publication</li>
                                 <li>
-                                    <a href="publication">
+                                    <a href="publication?action=publication">
                                         <i class="metismenu-icon pe-7s-graph2">
                                         </i>Publication
                                     </a>
