@@ -8,6 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
 <title>Publication</title>
 <link href="inc/inc_Dashboard/css/main.css" rel="stylesheet">
+<link href="inc/inc_Dashboard/css/publication.css" rel="stylesheet">
+<link href="inc/inc_Dashboard/css/util.css" rel="stylesheet">
 </head>
 <body>
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -28,15 +30,10 @@
                                 </div>
                                 <div class="page-title-actions">
                                      
-                                    <div class="d-inline-block dropdown">
-                                        <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow  btn btn-info">
-                                            
-                                          
-                                        </button>
-                                        
- 
-                                         <a href="publication?action=modifier"> Ajouter Publication</a> 
-                                         
+                                    <div class="d-inline-block dropdown">  
+                                          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow  btn btn-info">
+                                             <a href="publication?action=ajouter"> Ajouter Publication</a> 
+                                          </button>
                                     </div>
                                 </div>   
                                 
@@ -44,80 +41,103 @@
                         
                         </div>            
                         
-                        <div class="row">     
-                            <div class="col-lg-12">
-                                <div class="main-card mb-3 card">
-                                    <div class="card-body"><h5 class="card-title">Nos Publications</h5>
-                                        <table class="mb-0 table table-hover">
-                                            <thead>
-                                            <tr class="d-flex" >
-                                                <th class="col-2">#</th>
-                                                <th class="col-6">Titre</th>
-                                                <th class="col-2"></th>
-                                                <th class="col-2"></th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr class="d-flex">
-                                                <th scope="row" class="col-2">1</th>
-                                                <td class="col-6">Mark</td>
-                                                <td class="col-2">
-                                                	<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-success">
-                                                	Modifier
-                                        			</button>
-                                                </td>
-                                                <td class="col-2">
-                                               		 <button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-danger">
-                                                	Supprimer
-                                        			</button>
-                                       			</td>
-                                            </tr>
-                                            <tr class="d-flex">
-                                                <th scope="row" class="col-2">2</th>
-                                                <td class="col-6">Jacob</td>
-                                                <td class="col-2">
-                                                	<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-success">
-                                                	Modifier
-                                        			</button>
-                                                </td>
-                                                <td class="col-2">
-                                               		 <button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-danger">
-                                                	Supprimer
-                                        			</button>
-                                       			</td>
-                                            </tr>
-                                            <tr class="d-flex">
-                                                <th scope="row" class="col-2">3</th>
-                                                <td class="col-6">Larry</td>
-                                                <td class="col-2">
-                                                	<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-success">
-                                                	Modifier
-                                        			</button>
-                                                </td>
-                                                <td class="col-2">
-                                               		 <button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-danger">
-                                                	Supprimer
-                                        			</button>
-                                       			</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                          
-                       
- 
-                        </div>
+                        
+				<div class="table100 ver1 m-b-110">
+					<div class="table100-head">
+						<table>
+							<thead>
+								<tr class=" head">
+									<th class="column1">Nos Publications</th>
+									<th class="column2"></th>
+									<th class="column3"></th>
+									<th class="column4"></th>
+								</tr>
+							</thead>
+						</table>
+					</div>
+
+					<div class="table100-body js-pscroll">
+						<table>
+							<tbody>
+							<c:forEach var="publication" items="${publications}">
+								<tr class="body">
+									
+									<td class="column1"><c:out value="${publication.id}" /></td>
+									
+									<td class="column2"><c:out value="${publication.titre}" /></td>
+									
+									<td class="column4">
+										<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-success">
+                                              <a href="modifier?id=<c:out value='${publication.id}' />">Modifier</a>
+                                        </button>
+									</td>
+									
+									<td class="cell100 column5">
+										<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-danger">
+                                          	<a href="supprimer?id=<c:out value='${publication.id}' />">Supprimer</a> 
+                                        </button>
+									</td>
+								
+								</tr>
+								
+								</c:forEach>
+ 	 
+								</tbody>
+							</table>
+						</div>
+					</div> 
+				</div>
+			</div>
+		</div>
+       </div>
+                  
+	<!-- Delete Confirmation Dialog -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header mb-3">
+                    <div class="logo-delete">
+                        <i class="fas fa-times"></i>
                     </div>
-                   </div>
-		
-		
-	</div>
+                </div>
+                <div class="modal-body text-center mt-4">
+                    <b>Êtes vous sure ?</b>
+                    <span class="d-block mt-2">
+                        Êtes vous sure de supprimer cette pubication ?
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-cancel" data-dismiss="modal">Retour</button>
+                    <button type="button" class="btn btn-primary btn-delete">
+                        <i class="fas fa-trash-alt mr-3"></i>Supprimer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 	
 	 </div>
-			
+	 
 
-	<script type="text/javascript" src="inc/inc_Dashboard/assets/scripts/main.js"></script>
+			
+<c:import url="/inc/inc_Dashboard/footer.jsp" />
+<!--===============================================================================================-->
+	<script src="inc/inc_Dashboard/js/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="inc/inc_Dashboard/js/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+			
+		
+	</script>
+	
+	 
 </body>
 </html>
