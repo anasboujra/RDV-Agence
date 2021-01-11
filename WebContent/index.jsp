@@ -14,8 +14,11 @@
 	<c:import url="/inc/inc_Dashboard/header.jsp" />
 	<div class="app-main">
 		<c:import url="/inc/inc_Dashboard/slidebar.jsp" />
+		<div class="app-main__outer">
+			
+		</div>
 	</div>
-	</div>
+</div>
 
 
 	<script type="text/javascript" src="inc/inc_Dashboard/assets/scripts/main.js"></script>
