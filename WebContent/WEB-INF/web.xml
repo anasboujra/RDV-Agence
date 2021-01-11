@@ -31,5 +31,13 @@
   <servlet-mapping>
   	<servlet-name>Employe</servlet-name>
   	<url-pattern>/employe</url-pattern>
+	</servlet-mapping>
+	<servlet>
+    <servlet-name>DashboardReservation</servlet-name>
+    <servlet-class>com.RDV.servlets.DashboardReservation</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>DashboardReservation</servlet-name>
+	<url-pattern>/reservation</url-pattern>
   </servlet-mapping>
 </web-app>
