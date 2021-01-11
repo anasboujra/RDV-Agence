@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +14,12 @@
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
 	<c:import url="/inc/inc_Dashboard/header.jsp" />
 	<div class="app-main">
-		<c:import url="/inc/inc_Dashboard/slidebar.jsp" />
+		<c:import url="/inc/inc_Dashboard/sidebar.jsp" />
 	</div>
+	
+	
+	
 	</div>
-
-
 	<script type="text/javascript" src="inc/inc_Dashboard/assets/scripts/main.js"></script>
 </body>
 </html>
