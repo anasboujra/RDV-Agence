@@ -25,7 +25,7 @@ public class DashboardPublication extends HttpServlet {
 	private static final String VUE_AJOUTER = "/WEB-INF/Dashboard/Publication/ajouterPublication.jsp";
 	private static final String VUE_MODIFIER = "/WEB-INF/Dashboard/Publication/modifierPublication.jsp";
 	private static final String ATT_FORM   = "form";
-	
+	private static final String ATT_PUBLICATIONS = "publications";
     
 	
 	 private PublicationDao publicationDao;
@@ -101,7 +101,7 @@ public class DashboardPublication extends HttpServlet {
 	private void listPublications(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
 				List < Publication > publications = publicationDao.getAllPublications();
 				System.out.println(publications);
-		        request.setAttribute("publications", publications);
+		        request.setAttribute(ATT_PUBLICATIONS, publications);
  		        RequestDispatcher dispatcher = request.getRequestDispatcher(VUE_PUBLICATION);
 		        dispatcher.forward(request, response);
 		    }

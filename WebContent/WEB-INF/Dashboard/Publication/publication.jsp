@@ -55,39 +55,19 @@
 
 					<div class="table100-body js-pscroll">
 						<table>
-						<tr class="body">
-									
-									<td class="column1">sssssss1</td>
-									
-									<td class="column2">ssssssssss2</td>
-									
-									<td class="column4">
-										<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-success">
-                                              Modifier
-                                        </button>
-                                        
-									</td>
-									
-									<td class="cell100 column5">
-										<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
-                                          	Supprimer 
-                                        </button>
-                                        
-									</td>
-								
-								</tr>
-						 
-							<c:forEach var="publications" items="${publications}">
+							<c:forEach var="publication" items="${publications}">
 								<tr class="body">
 									
-									<td class="column1"><c:out value="${publications.id}" /></td>
+									<td class="column1"><c:out value="${publication.id}" /></td>
 									
-									<td class="column2"><c:out value="${publications.titre}" /></td>
+									<td class="column2"><c:out value="${publication.titre}" /></td>
 									
 									<td class="column4">
-										<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-success">
-                                              <a href="modifier?id=<c:out value='${publications.id}' />">Modifier</a>
-                                        </button>
+										<a href="modifier?id=<c:out value='${publication.id}' />">
+											<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-success">
+                                            	  Modifier
+                                        	</button>
+                                       </a>
 									</td>
 									
 									<td class="cell100 column5">

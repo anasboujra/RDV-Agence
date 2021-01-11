@@ -88,10 +88,9 @@
 				              <div>
 				                <button class="btn btn--radius-2 btn--red" type="submit">Enregistrer</button>
 				           	  </div>
-				                    
-				            </div>
 				            
 				        </form>
+				   		</div>
 				    </div>
 				</div>
 			</div>  
@@ -99,7 +98,7 @@
 		</div>
 		
 	</div>
-</div>
+ 
 
 <!-- Include our Footer with js scripts-->
 <c:import url="/inc/inc_Dashboard/footer.jsp" />
