@@ -918,6 +918,13 @@ input {
 	font-size: 0.8rem;
 	border-radius: 50px;
 }
+#edit-btn{
+	padding: 8px 12px 8px 15px;
+	background-color: #14bf6f;
+	color: #fff;
+	font-size: 0.8rem;
+	border-radius: 50px;
+}
 .modal-trigger{
 	cursor: pointer;
 }
@@ -971,8 +978,16 @@ input {
 .signupForm-ontainer{
   max-width: 800px;
 }
-.btn--red, .card-5 .card-heading {
+.card-5 .card-heading{
+	background: #3f6ad8;
+}
+.btn--red{
     background: #3f6ad8;
+    padding: 10px 25px;
+    color: #fff;
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: 550;
 }
 .img-employe{
   max-width: 100px;
