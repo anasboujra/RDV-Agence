@@ -127,7 +127,7 @@ public class PublicationDao {
 	            transaction = session.beginTransaction();
 	            // get an user object
 
-	            publications = session.createQuery("from Publication").getResultList();
+	            publications = session.createQuery("from publication").getResultList();
 
 	            // commit transaction
 	            transaction.commit();
@@ -137,6 +137,7 @@ public class PublicationDao {
 	            }
 	            e.printStackTrace();
 	        }
+ 
 	        return publications;
 	    }
 	}

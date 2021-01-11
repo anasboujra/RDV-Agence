@@ -23,17 +23,14 @@
                             <div class="page-title-wrapper">
                                 <div class="page-title-heading">
                                     <div class="page-title-icon">
-                                        <i class="pe-7s-drawer icon-gradient bg-happy-itmeo">
-                                        </i>
+                                        <i class="fas fa-edit"></i>
                                     </div>
                                     <div>Publication</div>
                                 </div>
                                 <div class="page-title-actions">
                                      
                                     <div class="d-inline-block dropdown">  
-                                          <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow  btn btn-info">
-                                             <a href="publication?action=ajouter"> Ajouter Publication</a> 
-                                          </button>
+                                             <a href="publication?action=ajouter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn-shadow  btn btn-info"> Ajouter Publication</a> 
                                     </div>
                                 </div>   
                                 
@@ -58,31 +55,51 @@
 
 					<div class="table100-body js-pscroll">
 						<table>
-							<tbody>
-							<c:forEach var="publication" items="${publications}">
-								<tr class="body">
+						<tr class="body">
 									
-									<td class="column1"><c:out value="${publication.id}" /></td>
+									<td class="column1">sssssss1</td>
 									
-									<td class="column2"><c:out value="${publication.titre}" /></td>
+									<td class="column2">ssssssssss2</td>
 									
 									<td class="column4">
 										<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-success">
-                                              <a href="modifier?id=<c:out value='${publication.id}' />">Modifier</a>
+                                              Modifier
+                                        </button>
+                                        
+									</td>
+									
+									<td class="cell100 column5">
+										<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
+                                          	Supprimer 
+                                        </button>
+                                        
+									</td>
+								
+								</tr>
+						 
+							<c:forEach var="publications" items="${publications}">
+								<tr class="body">
+									
+									<td class="column1"><c:out value="${publications.id}" /></td>
+									
+									<td class="column2"><c:out value="${publications.titre}" /></td>
+									
+									<td class="column4">
+										<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-success">
+                                              <a href="modifier?id=<c:out value='${publications.id}' />">Modifier</a>
                                         </button>
 									</td>
 									
 									<td class="cell100 column5">
-										<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-danger">
-                                          	<a href="supprimer?id=<c:out value='${publication.id}' />">Supprimer</a> 
+										<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-danger" data-toggle="modal" data-target="#exampleModal">
+                                          	 Supprimer
                                         </button>
 									</td>
 								
 								</tr>
-								
 								</c:forEach>
  	 
-								</tbody>
+							 
 							</table>
 						</div>
 					</div> 
@@ -96,12 +113,8 @@
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header mb-3">
-                    <div class="logo-delete">
-                        <i class="fas fa-times"></i>
-                    </div>
-                </div>
                 <div class="modal-body text-center mt-4">
+                	<i class="fas fa-exclamation-triangle"></i>
                     <b>Êtes vous sure ?</b>
                     <span class="d-block mt-2">
                         Êtes vous sure de supprimer cette pubication ?
@@ -109,15 +122,17 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-cancel" data-dismiss="modal">Retour</button>
-                    <button type="button" class="btn btn-primary btn-delete">
-                        <i class="fas fa-trash-alt mr-3"></i>Supprimer
-                    </button>
+                    <form action="publication?action=supprimer" method="get">    
+                    	<input type="text" name="id" />
+                        <input type="submit"  class="btn btn-primary btn-delete" value="Supprimer" name="Submit" />
+                	</form>
                 </div>
             </div>
         </div>
     </div>
 	
-	 </div>
+	 
+	
 	 
 
 			
@@ -134,6 +149,11 @@
 				ps.update();
 			})
 		});
+		
+		$('a[href="#myModal"]').on('click',function(){
+			   var id = $(this).attr('data-id');
+			  $('input[name="idPublication"]').val(id);
+			});
 			
 		
 	</script>

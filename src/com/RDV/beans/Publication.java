@@ -1,7 +1,6 @@
 package com.RDV.beans;
 
-import java.io.InputStream;
-import java.sql.Date;
+ 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,45 +25,25 @@ public class Publication {
 	private String contenu;
 	
 	@Column(name="image")
-	private InputStream image;
+	private String image;
  
-	
-	@Column(name="dateCreation")
-	private Date date;
-	
-	
-	
-	public Publication(String titre, String contenu, InputStream image, Date date) {
-		super();
-		this.titre = titre;
-		this.contenu = contenu;
-		this.image = image;
-		this.date = date;
+ 
+ 	public Publication() {
+		// TODO Auto-generated constructor stub
 	}
-	
-	
 
- 
-	
-	
-	public Publication(int id, String titre, String contenu, InputStream image, Date date) {
+
+	 
+
+
+	public Publication(int id, String titre, String contenu, String image) {
 		super();
 		this.id = id;
 		this.titre = titre;
 		this.contenu = contenu;
 		this.image = image;
-		this.date = date;
+		 
 	}
-
-
-
-
-
-
-	public Publication() {
-		// TODO Auto-generated constructor stub
-	}
-
 
 
 
@@ -74,36 +53,43 @@ public class Publication {
 		return id;
 	}
 
+
 	public void setId(int id) {
 		this.id = id;
 	}
 
-	 
+
 	public String getTitre() {
 		return titre;
 	}
+
 
 	public void setTitre(String titre) {
 		this.titre = titre;
 	}
 
+
 	public String getContenu() {
 		return contenu;
 	}
+
 
 	public void setContenu(String contenu) {
 		this.contenu = contenu;
 	}
 
-	public InputStream getImage() {
+
+	public String getImage() {
 		return image;
 	}
 
-	public void setImage(InputStream image) {
+
+	public void setImage(String image) {
 		this.image = image;
 	}
-	
-	
-	
+
+ 
+ 	
+ 
 
 }

@@ -816,6 +816,59 @@ input , textarea{
 	font-size: 0.8rem;
 	border-radius: 100px;
 }
+#delete-btn{
+	padding: 8px 12px;
+	background-color: #F15E5E;
+	color: #fff;
+	font-size: 0.8rem;
+	border-radius: 50px;
+}
+.modal-trigger{
+	cursor: pointer;
+}
+.btn-delete{
+	background-color: #F15E5E;
+	font-size: 1rem;
+	font-weight: 550;
+	border-color: #d84343;
+}
+.btn-delete:hover{
+	background-color: #D94444;
+	border-color: #d84343;
+}
+.modal-header{
+	border-bottom: 0px;
+}
+.modal-footer{
+	border-top: 0px;
+}
+.modal-header, .modal-footer{
+    background: #fff;
+}
+.btn-cancel{
+	background-color: #C1C1C1;
+	border: 0px;
+	color: #fff;
+	font-weight: 550;
+	font-size: 1rem;
+}
+.modal-content{
+	position: relative;
+}
+.modal-body b{
+	font-size: 1rem;
+}
+.logo-delete{
+	position: absolute;
+	left: 44.2%;
+}
+.logo-delete i{
+	padding: 17px 20px;
+	border-radius: 100%;
+	color: #F15E5E;
+	font-size: 1.4rem;
+	border: 2px solid #F15E5E;
+}
  
 /******************************************* Add & Update Employe Info ******************************************/
  

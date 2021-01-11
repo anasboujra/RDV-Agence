@@ -31,13 +31,20 @@
 				        <h2 class="title">Ajouter Publication</h2>
 				    </div>
 				    <div class="card-body">
-				        <form method="POST"  action="publication?action=enregistrer">
+				        <form method="POST"  action="publication?action=enregistrer"  enctype="multipart/form-data">
 				            <div class="form-row m-b-55">
 				                <div class="name">Titre</div>
 				                <div class="value">
 				                    <div class="input-group">
 				                        <input class="input--style-5" type="text" name="titre" value="<c:out value='${publication.titre}' />">
-				                        <span class="erreur">${form.erreurs['titre']}</span>
+				                        <c:if test="${!empty form.erreurs['titre']  }">
+								            <!-- Afficher l'erreur dans ce bloc -->
+								            	 <div class=" error mb-2">
+					                                    <div class="alert alert-danger mb-2" role="alert">
+					                                        <c:out value="${form.erreurs['titre'] }"/>
+					                                    </div>
+					                                </div>
+				                            </c:if>    
 				                    </div>
 				                </div>
 				            </div>
@@ -46,7 +53,14 @@
 				                <div class="value">
 				                    <div class="input-group">
 				                        <textarea class="input--style-5" name="contenu" ><c:out value="${publication.contenu}" /></textarea>
-				                        <span class="erreur">${form.erreurs['contenu']}</span>
+				                         <c:if test="${!empty form.erreurs['contenu']  }">
+								            <!-- Afficher l'erreur dans ce bloc -->
+								            	 <div class=" error mb-2">
+					                                    <div class="alert alert-danger mb-2 " role="alert">
+					                                        <c:out value="${form.erreurs['contenu'] }"/>
+					                                    </div>
+					                            </div>
+				                            </c:if>   
 				                    </div>
 				                </div>
 				            </div>
@@ -58,11 +72,25 @@
 				            	<div class="value custom-file">
 							      	<input type="file" class="custom-file-input input--style-5" id="image" name="image">
 							      	<label class="custom-file-label" for="image">Choose file</label>
-							    </div>
+							      	<br>
+							      	<c:if test="${!empty form.erreurs['image']  }">
+								            <!-- Afficher l'erreur dans ce bloc -->
+								            	 <div class=" error mb-2">
+					                                    <div class="alert alert-danger mb-2 " role="alert">
+					                                        <c:out value="${form.erreurs['image'] }"/>
+					                                    </div>
+					                                </div>
+				                            </c:if> 
+							    </div>  
+				                </div>
+				                <br>
+				                <br>
+				              <div>
+				                <button class="btn btn--radius-2 btn--red" type="submit">Enregistrer</button>
+				           	  </div>
+				                    
 				            </div>
-				            <div>
-				                <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
-				            </div>
+				            
 				        </form>
 				    </div>
 				</div>
