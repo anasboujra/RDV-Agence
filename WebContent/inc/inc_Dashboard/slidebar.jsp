@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="UTF-8"%>
 <div class="app-sidebar sidebar-shadow">
 
                   
@@ -43,7 +43,7 @@
                              Dashboard RDV
                          </a>
                      </li>
-                     <li class="app-sidebar__heading">Gestion Employé</li>
+                     <li class="app-sidebar__heading">Gestion Employï¿½</li>
                      <li>
                          <a href="employe">
                              <i class="metismenu-icon pe-7s-display2"></i>
@@ -68,9 +68,21 @@
                                     <i class="fas fa-edit"></i> Publication
                                 </a>
                             </li>
+                            <li class="app-sidebar__heading">Clients</li>
+                                <li>
+                                    <a href="Client">
+                                        Liste de clients
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="Commentaires">
+                                        Commentaires
+                                    </a>
+                                </li>
                  </ul>
              </div>
          <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 597px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 527px;"></div>
       	</div>
      </div>
 </div>
+

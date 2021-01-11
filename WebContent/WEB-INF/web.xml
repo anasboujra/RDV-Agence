@@ -40,4 +40,12 @@
 	<servlet-name>DashboardReservation</servlet-name>
 	<url-pattern>/reservation</url-pattern>
   </servlet-mapping>
+	<servlet>
+		<servlet-name>Commentaires</servlet-name>
+		<servlet-class>com.RDV.servlets.Commentaires</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Commentaires</servlet-name>
+		<url-pattern>/Commentaires/*</url-pattern>
+	</servlet-mapping>
 </web-app>
