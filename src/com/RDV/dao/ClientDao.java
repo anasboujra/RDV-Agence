@@ -1,4 +1,4 @@
-package com.RDV.dao;
+package com.RDV.Dao;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.RDV.beans.Client;
-import com.RDV.utl.HibernateUtil;
+import com.RDV.util.HibernateUtil;
 
 
 public class ClientDao {

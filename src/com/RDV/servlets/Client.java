@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.RDV.dao.ClientDao;
+import com.RDV.Dao.ClientDao;
 
 /**
  * Servlet implementation class Client
  */
-@WebServlet("/Client")
+
 public class Client extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private  ClientDao clientDao;
@@ -56,7 +56,7 @@ public class Client extends HttpServlet {
 			throws SQLException, IOException, ServletException {
 		List<com.RDV.beans.Client> listClient = clientDao.getAllClient();
 		request.setAttribute("listClient", listClient);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Client.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Dashboard/Client/client.jsp");
 		dispatcher.forward(request, response);
 	}
 

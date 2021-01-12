@@ -117,8 +117,9 @@ public class PublicationDao {
 	     * Get all Users
 	     * @return
 	     */
+	    	
 	    @SuppressWarnings("unchecked")
-	    public List < Publication > getAllPublications() {
+	    public List <Publication > getAllPublications() {
 
 	        Transaction transaction = null;
 	        List < Publication > publications = null;

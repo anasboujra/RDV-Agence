@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.RDV.dao.CommentaireDao;
+import com.RDV.Dao.CommentaireDao;
 
 
 
@@ -56,7 +56,7 @@ public class Commentaires extends HttpServlet {
 			throws SQLException, IOException, ServletException {
 		List<com.RDV.beans.Commentaires> listCommentaires = commentaireDao.getAllCommentaires();
 		request.setAttribute("listCommentaires", listCommentaires);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Commentaires.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/Dashboard/Client/commentaires.jsp");
 		dispatcher.forward(request, response);
 	}
 
