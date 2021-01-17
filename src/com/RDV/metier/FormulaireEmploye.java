@@ -143,8 +143,7 @@ public class FormulaireEmploye {
                  * On doit donc faire en sorte de ne sélectionner que le nom et
                  * l'extension du fichier, et de se débarrasser du superflu.
                  */
-                nomFichier = nomFichier.substring( nomFichier.lastIndexOf( '/' ) + 1 )
-                        .substring( nomFichier.lastIndexOf( '\\' ) + 1 );
+                nomFichier = nomFichier.substring( nomFichier.lastIndexOf( '/' ) + 1 ).substring( nomFichier.lastIndexOf( '\\' ) + 1 );
 
                 /* Récupération du contenu du fichier */
                 contenuFichier = part.getInputStream();
