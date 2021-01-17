@@ -18,7 +18,7 @@
 	
 	<servlet-mapping>
 		<servlet-name>DashboardPublication</servlet-name>
-		<url-pattern>/publication/*</url-pattern>
+		<url-pattern>/publication</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>

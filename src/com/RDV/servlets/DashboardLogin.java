@@ -23,7 +23,7 @@ public class DashboardLogin extends HttpServlet {
     private static final String CHAMP_PASSWORD   = "password";
     private static final String CHAMP_ERREUR ="erreur";
 
-    public static final String VUE_SUCCES = "index.jsp";
+    private static final String VUE_SUCCES = "/WEB-INF/Dashboard/index.jsp";
     private EmployeDAO          employeDao;
  
 	
@@ -65,7 +65,7 @@ public class DashboardLogin extends HttpServlet {
 
 			        if (employe != null) {
 			        	
-			        	request.setAttribute("employe", employe);
+			        	request.setAttribute(ATT_EMPLOYE, employe);
 			            RequestDispatcher dispatcher = request.getRequestDispatcher(VUE_SUCCES);
 			            dispatcher.forward(request, response);
 			        } else {

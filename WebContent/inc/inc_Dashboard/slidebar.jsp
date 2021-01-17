@@ -38,7 +38,7 @@
                  <ul class="vertical-nav-menu metismenu">
                      <li class="app-sidebar__heading">Dashboards</li>
                      <li>
-                         <a href="/RDV-Agence" class="mm-active">
+                         <a href="dashboard" class="mm-active">
                              <i class="metismenu-icon pe-7s-rocket"></i>
                              Dashboard RDV
                          </a>
