@@ -10,7 +10,6 @@ import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.RDV.beans.Publication;
@@ -45,6 +44,8 @@ public final class PublicationValidation {
     	String image = part.getSubmittedFileName();
     	// Corrige un bug du fonctionnement d'Internet Explorer
         image = image.substring(image.lastIndexOf('/') + 1).substring(image.lastIndexOf('\\') + 1);
+        
+        System.out.println(titre + image);
  
     	 try {
          	validationTitre(titre);
@@ -67,6 +68,10 @@ public final class PublicationValidation {
           setErreur( CHAMP_IMAGE, e.getMessage() );
           }
          publication.setImage(image);
+         
+       //  publication.setDate(new Date(0));
+         
+         publication.setIdEmploye(1);
          
          // On écrit définitivement le fichier sur le disque
         // ecrireFichier(part, image, CHEMIN_IMAGE);

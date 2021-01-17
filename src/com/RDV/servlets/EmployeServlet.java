@@ -146,8 +146,7 @@ public class EmployeServlet extends HttpServlet {
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 
-    private void listEmploye( HttpServletRequest request, HttpServletResponse response )
-            throws ServletException, IOException {
+    private void listEmploye( HttpServletRequest request, HttpServletResponse response ) throws ServletException, IOException {
         int id = Integer.parseInt( request.getParameter( "id" ) );
         Employe employe = employeDao.getEmploye( id );
 

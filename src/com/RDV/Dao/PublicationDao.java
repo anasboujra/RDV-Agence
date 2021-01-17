@@ -1,4 +1,5 @@
 package com.RDV.Dao;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -14,23 +15,19 @@ import com.RDV.util.HibernateUtil;
  */
 
 public class PublicationDao {
-	
-	
  
-
-	    /**
-	     * Save User
-	     * @param user
-	     */
 	    public void savePublication(Publication publication) {
 	        Transaction transaction = null;
 	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 	            // start a transaction
 	            transaction = session.beginTransaction();
+	            System.out.println("Kant hna 1");
 	            // save the publication object
 	            session.save(publication);
+	            System.out.println("Kant hna 2");
 	            // commit transaction
 	            transaction.commit();
+	            System.out.println("Kant hna 3");
 	        } catch (Exception e) {
 	            if (transaction != null) {
 	                transaction.rollback();
@@ -122,14 +119,16 @@ public class PublicationDao {
 	    public List <Publication > getAllPublications() {
 
 	        Transaction transaction = null;
-	        List < Publication > publications = null;
+	        ArrayList < Publication > publications = null;
 	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 	            // start a transaction
 	            transaction = session.beginTransaction();
 	            // get an user object
 
-	            publications = session.createQuery("from publication").getResultList();
-
+	            System.out.println("Ana hona");
+	            publications = (ArrayList<Publication>) session.createQuery("from Publication").getResultList();
+	            System.out.println("Ana hona2");
+	            System.out.println(publications);
 	            // commit transaction
 	            transaction.commit();
 	        } catch (Exception e) {

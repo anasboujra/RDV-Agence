@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-<title>Ajouter Publication</title>
+<title>Modifier Publication</title>
 <link href="inc/inc_Dashboard/css/main.css" rel="stylesheet">
 <link href="inc/inc_Dashboard/css/publication.css" rel="stylesheet">
 </head>
@@ -31,7 +31,7 @@
 				        <h2 class="title">Modifierr Publication</h2>
 				    </div>
 				    <div class="card-body">
-				        <form method="POST"  action="publication?action=enregistrer"  enctype="multipart/form-data">
+				        <form method="post"  action="publication?action=modifier" enctype="multipart/form-data">
 				            <div class="form-row m-b-55">
 				                <div class="name">Titre</div>
 				                <div class="value">

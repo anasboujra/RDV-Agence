@@ -1,18 +1,11 @@
 package com.RDV.servlets;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.sql.Blob;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-
 import com.RDV.Dao.PublicationDao;
 import com.RDV.beans.Publication;
 import com.RDV.metier.PublicationValidation;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +19,7 @@ public class DashboardPublication extends HttpServlet {
 	private static final String VUE_MODIFIER = "/WEB-INF/Dashboard/Publication/modifierPublication.jsp";
 	private static final String ATT_FORM   = "form";
 	private static final String ATT_PUBLICATIONS = "publications";
+	private static final String ATT_PUBLICATION = "publication";
     
 	
 	 private PublicationDao publicationDao;
@@ -42,20 +36,17 @@ public class DashboardPublication extends HttpServlet {
 		
 		String action = request.getParameter("action");
     	if(action == null) {
-    		this.getServletContext().getRequestDispatcher( VUE_PUBLICATION ).forward( request, response );
+    		try {
+				listPublications(request, response);
+			} catch (SQLException | IOException | ServletException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	}else {
     		switch(action)
             {
             case "ajouter":
                 ajouterForm(request, response);
-                break;
-            case "enregistrer":
-                try {
-					enregistrerPublication(request, response);
-				} catch (SQLException | IOException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
                 break;
             case "supprimer":
                 try {
@@ -65,7 +56,7 @@ public class DashboardPublication extends HttpServlet {
 					e2.printStackTrace();
 				}
                 break;
-            case "edit":
+            case "modifier":
                 try {
 					modifierForm(request, response);
 				} catch (SQLException | ServletException | IOException e1) {
@@ -73,14 +64,7 @@ public class DashboardPublication extends HttpServlet {
 					e1.printStackTrace();
 				}
                 break;
-            case "modifier":
-                try {
-					modifierPublication(request, response);
-				} catch (SQLException | IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-                break;
+           
             default:
                 try {
 					listPublications(request, response);
@@ -99,64 +83,100 @@ public class DashboardPublication extends HttpServlet {
 	}
 	
 	private void listPublications(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-				List < Publication > publications = publicationDao.getAllPublications();
+				ArrayList < Publication > publications = (ArrayList<Publication>) publicationDao.getAllPublications();
 				System.out.println(publications);
 		        request.setAttribute(ATT_PUBLICATIONS, publications);
- 		        RequestDispatcher dispatcher = request.getRequestDispatcher(VUE_PUBLICATION);
-		        dispatcher.forward(request, response);
+		        this.getServletContext().getRequestDispatcher( VUE_PUBLICATION ).forward( request, response );;
 		    }
 
 		    private void ajouterForm(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		        
-		    	RequestDispatcher dispatcher = request.getRequestDispatcher(VUE_AJOUTER);
-		        dispatcher.forward(request, response);
+		    	 this.getServletContext().getRequestDispatcher( VUE_AJOUTER ).forward( request, response );
 		    }
 
 		    private void modifierForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
 		        
-		    	int id = Integer.parseInt(request.getParameter("id"));
-		        Publication modifierPublication = publicationDao.getPublication(id);
-		        RequestDispatcher dispatcher = request.getRequestDispatcher(VUE_MODIFIER);
-		        request.setAttribute("publication", modifierPublication);
-		        dispatcher.forward(request, response);
+		    	int id = Integer.parseInt( request.getParameter( "id" ) );
+		        Publication publication = publicationDao.getPublication(id);
+
+		        request.setAttribute( ATT_PUBLICATION, publication);
+
+		        this.getServletContext().getRequestDispatcher( VUE_MODIFIER ).forward( request, response );
 
 		    }
 
 		    private void enregistrerPublication(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-		    	PublicationValidation form = new PublicationValidation();
-		    	Publication newPublication = form.creerPublication(request);
-		    	request.setAttribute( ATT_FORM, form );		        
-		        if ( form.getErreurs().isEmpty() ) {
-		        	 publicationDao.savePublication(newPublication);
-		        	 this.getServletContext().getRequestDispatcher( VUE_PUBLICATION ).forward( request, response );
-		        }
-		        else
-		        {
-		        	this.getServletContext().getRequestDispatcher( VUE_AJOUTER).forward( request, response );
-		        }
+		    	 PublicationValidation formulaire = new PublicationValidation();
+
+		         Publication publication = formulaire.creerPublication(request);
+		         
+		         request.setAttribute( ATT_FORM, formulaire );
+		         request.setAttribute( ATT_PUBLICATION, publication );
+
+		         if ( formulaire.getErreurs().isEmpty() ) {
+		             publicationDao.savePublication(publication);
+		             response.sendRedirect( request.getContextPath() + "/" + ATT_PUBLICATION );
+		         }
+		         else
+		         {
+		        	 this.getServletContext().getRequestDispatcher( VUE_AJOUTER ).forward( request, response );
+		         }
+		         
+		         
+ 
 		    }
 
-		    private void modifierPublication(HttpServletRequest request, HttpServletResponse response)
-		    throws SQLException, IOException {
-		        int id = Integer.parseInt(request.getParameter("id"));
-		        String titre = request.getParameter("titre");
-		        String contenu = request.getParameter("contenu");
-		        String image = "www.image.com";
-		        Publication publication = new Publication(id, titre, contenu, image);
-		        publicationDao.updatePublication(publication);
-		        response.sendRedirect(VUE_PUBLICATION);
+		    private void modifierPublication(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+		    	PublicationValidation formulaire = new PublicationValidation();
+
+		        Publication publication = formulaire.creerPublication(request);
+		        
+		        request.setAttribute( ATT_FORM, formulaire );
+		        request.setAttribute( ATT_PUBLICATION, publication );
+		        
+		        if ( formulaire.getErreurs().isEmpty() ) {
+		            publicationDao.updatePublication(publication);
+		            response.sendRedirect( request.getContextPath() + "/" + ATT_PUBLICATION );
+		        }
+		        else {
+		        	this.getServletContext().getRequestDispatcher( VUE_MODIFIER ).forward( request, response );
+		        }
+		       
+		        
 		    }
 
-		    private void supprimerPublication(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+		    private void supprimerPublication(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
 		        int id = Integer.parseInt(request.getParameter("id"));
+		        System.out.println(id);
 		        publicationDao.deletePublication(id);
-		        response.sendRedirect(VUE_PUBLICATION);
+		        response.sendRedirect( request.getContextPath() + "/" + ATT_PUBLICATION );
 		    }
 
 	 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+		
+		String action = request.getParameter("action");
+	    System.out.println( action );
+	        switch ( action ) {
 
+            case "enregistrer":
+                try {
+					enregistrerPublication(request, response);
+				} catch (SQLException | IOException e2) {
+					 
+					e2.printStackTrace();
+				}
+                break;
+	        case "modifier":
+	            try {
+	   				modifierPublication(request, response);
+	   			} catch (SQLException | IOException e1) {
+	   				 
+	   				e1.printStackTrace();
+	   			}
+	            break;
+		
+	
+	}
+	}
 }

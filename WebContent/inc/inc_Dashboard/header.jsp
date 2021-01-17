@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="app-header header-shadow">
             <div class="app-header__logo">
                 <div class="logo-src"></div>
@@ -81,10 +82,11 @@
                                 </div>
                                 <div class="widget-content-left  ml-3 header-user-info">
                                     <div class="widget-heading">
-                                        Alina Mclourd
+                                        <c:out value="${employe.nom}"/>
+                                        <c:out value="${employe.prenom}"/>
                                     </div>
                                     <div class="widget-subheading">
-                                        VP People Manager
+                                        
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">
