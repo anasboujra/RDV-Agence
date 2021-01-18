@@ -58,13 +58,8 @@
 	
 <servlet>
   	<servlet-name>Client</servlet-name>
-<<<<<<< HEAD
   	<servlet-class>com.RDV.servlets.DashboardClient</servlet-class>
   </servlet>
-=======
-  	<servlet-class>com.RDV.servlets.Client</servlet-class>
-</servlet>
->>>>>>> origin/ReservationBranch
   
 <servlet-mapping>
   	<servlet-name>Client</servlet-name>
