@@ -28,10 +28,16 @@ public class Employe {
     private String email;
     @Column( name = "mot_de_passe" )
     private String password;
+    @Column( name = "ancien_mot_de_passe" )
+    private String oldPassword;
     @Column( name = "photo_profil" )
     private String photoProfile;
     @Column( name = "date_debut" )
     private String date_debut;
+    @Column( name = "isAdmin" )
+    private int    isAdmin;
+    @Column( name = "isConge" )
+    private int    isConge;
 
     public Employe() {
         super();
@@ -114,6 +120,14 @@ public class Employe {
         this.password = password;
     }
 
+    public String getOldPassword() {
+        return oldPassword;
+    }
+
+    public void setOldPassword( String oldPassword ) {
+        this.oldPassword = oldPassword;
+    }
+
     public String getPhotoProfile() {
         return photoProfile;
     }
@@ -128,6 +142,22 @@ public class Employe {
 
     public void setDate_debut( String date_debut ) {
         this.date_debut = date_debut;
+    }
+
+    public int getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin( int isAdmin ) {
+        this.isAdmin = isAdmin;
+    }
+
+    public int getIsConge() {
+        return isConge;
+    }
+
+    public void setIsConge( int isConge ) {
+        this.isConge = isConge;
     }
 
 }

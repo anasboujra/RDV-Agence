@@ -934,6 +934,20 @@ input {
 	font-weight: 550;
 	border-color: #d84343;
 }
+#suspend-btn{
+	padding: 8px 12px;
+	color: #FFF;
+	font-size: 0.8rem;
+	border-radius: 5px;
+	background-color: #f69a48;
+}
+#payment-btn{
+	padding: 8px 12px;
+	color: #FFF;
+	font-size: 0.8rem;
+	border-radius: 5px;
+	background-color: #5c7488;
+}
 .btn-delete:hover{
 	background-color: #D94444;
 	border-color: #d84343;
@@ -960,7 +974,7 @@ input {
 .modal-body b{
 	font-size: 1rem;
 }
-.logo-delete{
+.logo-delete,.logo-suspend{
 	position: absolute;
 	left: 44.2%;
 }
@@ -996,4 +1010,52 @@ input {
 }
 .updateFormEmploye{
   clear: both;
+}
+
+
+/******************************************* Add & Update Employe Info ******************************************/
+
+.Suspended{
+  filter:grayscale(80%);
+}
+.disabled{
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 3;
+}
+.button-enable{
+  position: absolute;
+  top: 5%;
+  left: 110%;
+  padding: 3px 20px;
+  border-radius: 50px;
+  font-weight: bold;
+  color: #fff !important;
+  background-color: rgb(225, 187, 20);
+  z-index: 4;
+}
+.disabled:hover .button-enable {
+  left: 65%;
+  transition: 0.5s;
+}
+.button-enable-mouseleave {
+  left: 110%;
+  transition: 0.5s;
+}
+
+
+.logo-suspend i {
+    padding: 17px 25px;
+    border-radius: 100%;
+    color: #ffb300;
+    font-size: 1.4rem;
+    border: 2px solid #FCB50D;
+}
+.btn-suspend{
+	background-color:#ffb300;
+	border-color:#CE950F;
 }
