@@ -70,12 +70,12 @@
                             </li>
                             <li class="app-sidebar__heading">Clients</li>
                                 <li>
-                                    <a href="Client">
+                                    <a href="Client"><i class="fas fa-user-friends"></i>
                                         Liste de clients
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="Commentaires">
+                                    <a href="Commentaires"><i class="fas fa-comment-dots"></i>
                                         Commentaires
                                     </a>
                                 </li>

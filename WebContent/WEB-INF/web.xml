@@ -40,7 +40,7 @@
 	
 <servlet>
   	<servlet-name>Client</servlet-name>
-  	<servlet-class>com.RDV.servlets.Client</servlet-class>
+  	<servlet-class>com.RDV.servlets.DashboardClient</servlet-class>
   </servlet>
   
 <servlet-mapping>
@@ -60,7 +60,7 @@
 	
 	<servlet>
 		<servlet-name>Commentaires</servlet-name>
-		<servlet-class>com.RDV.servlets.Commentaires</servlet-class>
+		<servlet-class>com.RDV.servlets.DashboardCommentaires</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>

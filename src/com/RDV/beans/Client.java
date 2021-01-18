@@ -11,29 +11,30 @@ import javax.persistence.Id;
 @Table(name="client")
 public class Client {
 	
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	@Column(name="cin")
-	protected String cin;
+	private String cin;
 	
 	@Column(name="prenom")
-	protected String prenom;
+	private String prenom;
 	
 	@Column(name="nom")
-	protected String nom;
+	private String nom;
 	
 	@Column(name="adresse")
-	protected String adresse;
+	private String adresse;
 	
 	@Column(name="numTele")
-	protected String numTele;
+	private String numTele;
 	
 	@Column(name="email")
-	protected String email;
+	private String email;
 	
 	@Column(name="photoProfile")
-	protected String photoProfile;
+	private String photoProfile;
 	
 	@Column( name = "mot_de_passe" )
     private String password;
@@ -112,5 +113,10 @@ public class Client {
         this.email = email;
         this.photoProfile = photoProfile;
     }
-	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 }
