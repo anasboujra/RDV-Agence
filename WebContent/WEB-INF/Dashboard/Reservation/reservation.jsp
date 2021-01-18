@@ -7,16 +7,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-<title>Reservation</title>
+<title>Gestion des Reservations</title>
 <link href="inc/inc_Dashboard/css/main.css" rel="stylesheet">
 <link href='inc/inc_Dashboard/assets/lib-calendrier/main.css' rel='stylesheet' />
-
 </head>
+
 <body>
 	<div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
 	<c:import url="/inc/inc_Dashboard/header.jsp" />
 		<div class="app-main">
-			<c:import url="/inc/inc_Dashboard/sidebar.jsp" />
+			<c:import url="/inc/inc_Dashboard/slidebar.jsp" />
 			<div class="app-main__outer">
 				<div class="app-main__inner">
 				    <div class="app-page-title">
@@ -32,10 +32,16 @@
 				                </div>
 				            </div>
 				            <div class="page-title-actions">
-				                <button type="button" class="btn mr-3 btn-success" data-toggle="modal" data-target=".ajouter-reservation">Ajouter une Réservation</button>
-			                    <button type="button" data-toggle="tooltip" class="btn-shadow mr-3 btn btn-warning">
-			                        <span>Réservations en attente (3)</span>
-			                    </button>
+				                <button type="button" class="btn mr-3 btn-success" data-toggle="modal" data-target=".ajouter-reservation">Ajouter une Réservation</button>			                    
+			                    <div class="dropdown d-inline-block">
+		                           <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-info">Liste des réservations</button>
+		                           <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
+		                               <a href="?action=enAttente" tabindex="0" class="	dropdown-item">Réservations en attente (3)</a>
+		                               <a href="?action=acceptee" tabindex="0" class="	dropdown-item">Réservations acceptées</a>
+		                               <a href="?action=validee" tabindex="0" class="	dropdown-item">Réservations validées</a>
+		                               <a href="?action=refusee" tabindex="0" class="	dropdown-item">Réservations refusées</a>
+		                           </div>
+		                       	</div>
 				       		</div>
 						</div>
 					</div>
@@ -64,12 +70,19 @@
 	                    <span aria-hidden="true">&times;</span>
 	                </button>
 	            </div>
-	            <form class="">
+	            <form action="reservation" method="post">
 	            	<div class="modal-body">
 		     			<div class="position-relative form-group"><label>ID de la réservation *</label><input name="idReservation" type="text" value="1232" readonly class="form-control"></div>
-		                <div class="position-relative form-group"><label>Date *</label><input name="date" type="date" class="form-control" required></div>
-		                <div class="position-relative form-group"><label>Heure *</label><input name="heure" type="time" class="form-control" required></div>
-		                <div class="position-relative form-group"><label>CIN du client *</label><input name="cin" type="text" class="form-control" required></div>
+		                <div class="position-relative form-group"><label>Date *</label><input name="date" type="date" value="<c:out value="${reservation.getDate() }"/>" class="form-control" required></div>
+		                <div class="position-relative form-group"><label>Heure *</label><input name="heure" type="time" value="<c:out value="${reservation.getHeure() }"/>" class="form-control" required></div>
+		                <div class="position-relative form-group"><label>CIN du client *</label><input name="cin" type="text" class="form-control" value="<c:out value="${reservation.getCin() }"/>" required></div>
+						<c:if test="${!empty formulaire.erreurs['cin']  }">
+		            	 	<div class=" error mb-2">
+	                    		<div class="alert alert-danger mb-2" role="alert">
+	                              	<c:out value="${formulaire.erreurs['cin'] }"/>
+	                          	</div>
+                            </div>
+						</c:if>
 						<small class="form-text text-muted">Les champs avec un astérisque (*) sont obligatoires.</small>
               		</div>
 					<div class="modal-footer">
@@ -114,7 +127,7 @@
 	          arg.event.remove()
 	        }
 	      },
-	      editable: true,
+	      editable: false,
 	      dayMaxEvents: true, // allow "more" link when too many events
 	      events: [
 	          {title: 'Anas Boujra', start: '2021-01-04T10:00:00', end: '2021-01-04T10:30:00'},

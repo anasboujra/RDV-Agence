@@ -13,6 +13,7 @@ import com.RDV.beans.Client;
 import com.RDV.beans.Commentaires;
 import com.RDV.beans.Employe;
 import com.RDV.beans.Publication;
+import com.RDV.beans.Reservation;
 
 
 
@@ -44,11 +45,13 @@ public class HibernateUtil {
     settings.put(Environment.HBM2DDL_AUTO, "update");
 
     configuration.setProperties(settings);
+    configuration.addAnnotatedClass(Reservation.class);
     configuration.addAnnotatedClass(Employe.class);
     configuration.addAnnotatedClass(Publication.class);
     configuration.addAnnotatedClass(Client.class);
     configuration.addAnnotatedClass(Commentaires.class);
     configuration.addAnnotatedClass(Annonce.class);
+    
      
 
     ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
