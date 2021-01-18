@@ -38,7 +38,7 @@
                  <ul class="vertical-nav-menu metismenu">
                      <li class="app-sidebar__heading">Dashboards</li>
                      <li>
-                         <a href="index.html" class="mm-active">
+                         <a href="dashboard" class="mm-active">
                              <i class="metismenu-icon pe-7s-rocket"></i>
                              Dashboard RDV
                          </a>
@@ -53,7 +53,14 @@
                      <li class="app-sidebar__heading">Publication</li>
                             <li>
                                 <a href="publication">
-                                    <i class="fas fa-edit"></i> Publication
+                                    <i style="margin:10px;" class="fas fa-edit"></i>
+                                     Publication
+                                </a>
+                            </li>
+                            <li>
+                                <a href="annonce">
+                                    <i style="margin:10px;" class="fab fa-adversal"></i>
+                                     Annonce
                                 </a>
                             </li>
                             <li class="app-sidebar__heading">Clients</li>

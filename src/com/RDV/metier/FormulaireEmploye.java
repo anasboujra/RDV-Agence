@@ -126,63 +126,34 @@ public class FormulaireEmploye {
         InputStream contenuFichier = null;
         try {
             Part part = request.getPart( CHAMP_PHOTO_PROFIL );
-            /*
-             * Il faut déterminer s'il s'agit bien d'un champ de type fichier :
-             * on délègue cette opération à la méthode utilitaire
-             * getNomFichier().
-             */
+        
             nomFichier = getNomFichier( part );
 
-            /*
-             * Si la méthode a renvoyé quelque chose, il s'agit donc d'un champ
-             * de type fichier (input type="file").
-             */
+         
             if ( nomFichier != null && !nomFichier.isEmpty() ) {
-                /*
-                 * Antibug pour Internet Explorer, qui transmet pour une raison
-                 * mystique le chemin du fichier local à la machine du client...
-                 * 
-                 * Ex : C:/dossier/sous-dossier/fichier.ext
-                 * 
-                 * On doit donc faire en sorte de ne sélectionner que le nom et
-                 * l'extension du fichier, et de se débarrasser du superflu.
-                 */
-                nomFichier = nomFichier.substring( nomFichier.lastIndexOf( '/' ) + 1 )
-                        .substring( nomFichier.lastIndexOf( '\\' ) + 1 );
+            
+                nomFichier = nomFichier.substring( nomFichier.lastIndexOf( '/' ) + 1 ).substring( nomFichier.lastIndexOf( '\\' ) + 1 );
 
-                /* Récupération du contenu du fichier */
+                 
                 contenuFichier = part.getInputStream();
 
             }
         } catch ( IllegalStateException e ) {
-            /*
-             * Exception retournée si la taille des données dépasse les limites
-             * définies dans la section <multipart-config> de la déclaration de
-             * notre servlet d'upload dans le fichier web.xml
-             */
+            
             e.printStackTrace();
             setErreur( CHAMP_PHOTO_PROFIL, "Les données envoyées sont trop volumineuses." );
         } catch ( IOException e ) {
-            /*
-             * Exception retournée si une erreur au niveau des répertoires de
-             * stockage survient (répertoire inexistant, droits d'accès
-             * insuffisants, etc.)
-             */
+            
             e.printStackTrace();
             setErreur( CHAMP_PHOTO_PROFIL, "Erreur de configuration du serveur." );
         } catch ( ServletException e ) {
-            /*
-             * Exception retournée si la requête n'est pas de type
-             * multipart/form-data. Cela ne peut arriver que si l'utilisateur
-             * essaie de contacter la servlet d'upload par un formulaire
-             * différent de celui qu'on lui propose... pirate ! :|
-             */
+             
             e.printStackTrace();
             setErreur( CHAMP_PHOTO_PROFIL,
                     "Ce type de requête n'est pas supporté, merci d'utiliser le formulaire prévu pour envoyer votre fichier." );
         }
 
-        /* Si aucune erreur n'est survenue jusqu'à présent */
+         
         if ( erreurs.isEmpty() ) {
             try {
                 validationFichier( nomFichier, contenuFichier );
@@ -192,9 +163,9 @@ public class FormulaireEmploye {
             employe.setPhotoProfile( nomFichier );
         }
 
-        /* Si aucune erreur n'est survenue jusqu'à présent */
+        
         if ( erreurs.isEmpty() ) {
-            /* Écriture du fichier sur le disque */
+             
             try {
                 ecrireFichier( contenuFichier, nomFichier, uploadPath );
             } catch ( Exception e ) {
@@ -202,7 +173,7 @@ public class FormulaireEmploye {
             }
         }
 
-        /* Initialisation du résultat global de la validation. */
+         
         if ( erreurs.isEmpty() ) {
             resultat = "Employé ajouté avec succès";
         } else {

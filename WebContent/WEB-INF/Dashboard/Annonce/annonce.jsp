@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-<title>Publication</title>
+<title>Annonces</title>
 <link href="inc/inc_Dashboard/css/main.css" rel="stylesheet">
 <link href="inc/inc_Dashboard/css/publication.css" rel="stylesheet">
 <link href="inc/inc_Dashboard/css/util.css" rel="stylesheet">
@@ -25,12 +25,12 @@
                                     <div class="page-title-icon">
                                         <i class="fas fa-edit"></i>
                                     </div>
-                                    <div>Publication</div>
+                                    <div>Annonce</div>
                                 </div>
                                 <div class="page-title-actions">
                                      
                                        
-                                             <a href="?action=ajouter"  class="btn-shadow  btn btn-info"> Ajouter Publication</a> 
+                                             <a href="?action=ajouter"  class="btn-shadow  btn btn-info"> Ajouter Annonce</a> 
                                     
                                 </div>   
                                 
@@ -55,15 +55,15 @@
 
 					<div class="table100-body js-pscroll">
 						<table>
-							<c:forEach items="${publications}" var="publication">
+							<c:forEach items="${annonces}" var="annonce">
 								<tr class="row100 body">
 									
-									<td class="cell100 column1"><c:out value="${publication.id}" /></td>
+									<td class="cell100 column1"><c:out value="${annonce.id}" /></td>
 									
-									<td class="column2"><c:out value="${publication.titre}" /></td>
+									<td class="column2"><c:out value="${annonce.titre}" /></td>
 									
 									<td class="cell100 column4">
-										<a href="?action=modifier&id=<c:out value='${publication.id}' />">
+										<a href="?action=modifier&id=<c:out value='${annonce.id}' />">
 											<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-success">
                                             	  Modifier
                                         	</button>
@@ -71,7 +71,7 @@
 									</td>
 									
 									<td class="cell100 column5">
-										<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-danger" data-toggle="modal" data-target="#confirm-delete" data-href="?action=supprimer&id=<c:out value="${publication.id }"/>">
+										<button class="mb-2 mr-2 border-0 btn-transition btn btn-outline-danger" data-toggle="modal" data-target="#confirm-delete" data-href="?action=supprimer&id=<c:out value="${annonce.id }"/>">
                                           	 Supprimer
                                         </button>
 									</td>
@@ -102,7 +102,7 @@
                 	<i class="fas fa-exclamation-triangle"></i>
                     <b>Êtes vous sure ?</b>
                     <span class="d-block mt-2">
-                        Êtes vous sure de supprimer cette pubication ?
+                        Êtes vous sure de supprimer cette annonce ?
                     </span>
                 </div>
                 <div class="modal-footer">

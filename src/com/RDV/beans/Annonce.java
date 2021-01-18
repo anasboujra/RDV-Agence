@@ -1,5 +1,4 @@
 package com.RDV.beans;
- 
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table( name = "publication" )
-public class Publication {
+@Table( name = "annonce" )
+public class Annonce {
 	
 	@Id
     @GeneratedValue( strategy = GenerationType.AUTO )
@@ -26,17 +25,16 @@ public class Publication {
 	@Column(name="idEmploye")
 	private int idEmploye;
 
-	public Publication() {
+	public Annonce() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Publication(int id, String titre, String contenu, String image, int idEmploye) {
+	public Annonce(int id, String titre, String contenu, String image, int idEmploye) {
 		super();
 		this.id = id;
 		this.titre = titre;
 		this.contenu = contenu;
 		this.image = image;
-		//this.date = date;
 		this.idEmploye = idEmploye;
 	}
 
@@ -72,7 +70,6 @@ public class Publication {
 		this.image = image;
 	}
 
-
 	public int getIdEmploye() {
 		return idEmploye;
 	}
@@ -80,6 +77,7 @@ public class Publication {
 	public void setIdEmploye(int idEmploye) {
 		this.idEmploye = idEmploye;
 	}
-
 	
+	
+
 }

@@ -6,7 +6,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-<title>Modifier Publication</title>
+<title>Modifier Annonce</title>
 <link href="inc/inc_Dashboard/css/main.css" rel="stylesheet">
 <link href="inc/inc_Dashboard/css/publication.css" rel="stylesheet">
 </head>
@@ -28,15 +28,15 @@
             <div class="signupForm-ontainer mx-auto px-3 px-sm-0">
 			 	<div class="card card-5">
 				    <div class="card-heading">
-				        <h2 class="title">Modifierr Publication</h2>
+				        <h2 class="title">Modifier Annonce</h2>
 				    </div>
 				    <div class="card-body">
-				        <form method="post"  action="publication?action=modifier" enctype="multipart/form-data">
+				        <form method="post"  action="annonce?action=modifier" enctype="multipart/form-data">
 				            <div class="form-row m-b-55">
 				                <div class="name">Titre</div>
 				                <div class="value">
 				                    <div class="input-group">
-				                        <input class="input--style-5" type="text" name="titre" value="<c:out value='${publication.titre}' />">
+				                        <input class="input--style-5" type="text" name="titre" value="<c:out value='${annonce.titre}' />">
 				                        <c:if test="${!empty form.erreurs['titre']  }">
 								            <!-- Afficher l'erreur dans ce bloc -->
 								            	 <div class=" error mb-2">
@@ -52,7 +52,7 @@
 				                <div class="name">Contenu</div>
 				                <div class="value">
 				                    <div class="input-group">
-				                        <textarea class="input--style-5" name="contenu" ><c:out value="${publication.contenu}" /></textarea>
+				                        <textarea class="input--style-5" name="contenu" ><c:out value="${annonce.contenu}" /></textarea>
 				                         <c:if test="${!empty form.erreurs['contenu']  }">
 								            <!-- Afficher l'erreur dans ce bloc -->
 								            	 <div class=" error mb-2">
