@@ -204,28 +204,9 @@
 	                                </div>
 	                            </div>
                             </c:if>
-                            
-				            <div class="form-row mb-4">
-				                <div class="name">Date de début</div>
-				                <div class="value">
-				                    <div class="input-group">
-				                        <input class="input--style-5" type="text" name="dateDebut" value="<c:out value="${todayDate }" />">
-				                    </div>
-				                </div>
-				            </div>
 				            
-				            <c:if test="${!empty formulaire.erreurs['dateDebut']  }">
-					            <!-- Afficher l'erreur dans ce bloc -->
-					            
-				            	 <div class="form-row error mb-2">
-	                                <div class="name"></div>
-	                                <div class="value">
-	                                    <div class="alert alert-danger mb-2 py-2" role="alert">
-	                                        <c:out value="${formulaire.erreurs['dateDebut'] }"/>
-	                                    </div>
-	                                </div>
-	                            </div>
-                            </c:if>
+				            <!-- start date hidden field -->
+				            <input class="input--style-5" type="hidden" name="dateDebut" value="<c:out value="${todayDate }" />">
                             
 				            <div class="form-row mb-4">
 				            	<div class="name">Photo de profil</div>

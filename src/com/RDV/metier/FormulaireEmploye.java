@@ -14,9 +14,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
+import com.RDV.Dao.EmployeDAO;
 import com.RDV.beans.Employe;
 
 public class FormulaireEmploye {
+    private static final String CHAMP_ID            = "id";
     private static final String CHAMP_CIN           = "cin";
     private static final String CHAMP_NOM           = "nom";
     private static final String CHAMP_PRENOM        = "prenom";
@@ -33,6 +35,7 @@ public class FormulaireEmploye {
 
     private String              resultat;
     private Map<String, String> erreurs             = new HashMap<String, String>();
+    private EmployeDAO          employeDAO;
 
     public String getResultat() {
         return resultat;
@@ -107,6 +110,7 @@ public class FormulaireEmploye {
             setErreur( CHAMP_PASSWORD, e.getMessage() );
         }
         employe.setPassword( password );
+        employe.setOldPassword( password );
 
         /* Validation du numero de telephone. */
         try {
@@ -203,6 +207,206 @@ public class FormulaireEmploye {
             resultat = "Employé ajouté avec succès";
         } else {
             resultat = "Echec lors de l'ajout d'un Employé";
+        }
+
+        return employe;
+    }
+
+    /* Cette fonction pour valider les champs lors du modification */
+
+    public Employe modifierEmploye( HttpServletRequest request ) throws IOException, ServletException {
+        /* Récupération des champs du formulaire */
+        int id = Integer.parseInt( getValeurChamp( request, CHAMP_ID ) );
+        String cin = getValeurChamp( request, CHAMP_CIN );
+        String nom = getValeurChamp( request, CHAMP_NOM );
+        String prenom = getValeurChamp( request, CHAMP_PRENOM );
+        String ville = getValeurChamp( request, CHAMP_VILLE );
+        String email = getValeurChamp( request, CHAMP_EMAIL );
+        String password = getValeurChamp( request, CHAMP_PASSWORD );
+        String numTelephone = getValeurChamp( request, CHAMP_NUM_TELEPHONE );
+        ServletContext context = request.getServletContext();
+        String uploadPath = context.getRealPath( FOLDER_NAME_UPLOAD );
+        System.out.println( FOLDER_NAME_UPLOAD );
+        System.out.println( uploadPath );
+        // String photoProfil = getValeurChamp( request, CHAMP_PHOTO_PROFIL );
+
+        Employe employe = new Employe();
+        employeDAO = new EmployeDAO();
+        employe = employeDAO.getEmploye( id );
+
+        /* Validation du champ cin. */
+        try {
+            validationCin( cin );
+        } catch ( Exception e ) {
+            setErreur( CHAMP_CIN, e.getMessage() );
+        }
+        employe.setCin( cin );
+
+        /* Validation du nom. */
+        try {
+            validationNom( nom );
+        } catch ( Exception e ) {
+            setErreur( CHAMP_NOM, e.getMessage() );
+        }
+        employe.setNom( nom );
+
+        /* Validation du prenom. */
+        try {
+            validationPrenom( prenom );
+        } catch ( Exception e ) {
+            setErreur( CHAMP_PRENOM, e.getMessage() );
+        }
+        employe.setPrenom( prenom );
+
+        /* Validation du champ ville. */
+        try {
+            validationVille( ville );
+        } catch ( Exception e ) {
+            setErreur( CHAMP_VILLE, e.getMessage() );
+        }
+        employe.setVille( ville );
+
+        /* Validation du champ email. */
+        try {
+            validationEmail( email );
+        } catch ( Exception e ) {
+            setErreur( CHAMP_EMAIL, e.getMessage() );
+        }
+        employe.setEmail( email );
+
+        /* Validation du champ mot de passe. */
+        try {
+            if ( password != null ) {
+                validationMotDePasse( password );
+            }
+        } catch ( Exception e ) {
+            setErreur( CHAMP_PASSWORD, e.getMessage() );
+        }
+        employe.setOldPassword( employe.getPassword() );
+        if ( password != null ) {
+            employe.setPassword( password );
+        } else {
+            employe.setPassword( employe.getPassword() );
+        }
+
+        /* Validation du numero de telephone. */
+        try {
+            validationNumTelephone( numTelephone );
+        } catch ( Exception e ) {
+            setErreur( CHAMP_NUM_TELEPHONE, e.getMessage() );
+        }
+        employe.setNumTele( numTelephone );
+
+        /* Initialisation du résultat global de la validation. */
+        if ( erreurs.isEmpty() ) {
+            resultat = "l'employé est modifié avec succès";
+        } else {
+            resultat = "Echec lors de la modification de l'employé";
+        }
+
+        return employe;
+    }
+
+    public Employe modifierPhotoProfil( HttpServletRequest request ) throws IOException, ServletException {
+
+        /* Récupération des champs du formulaire */
+        int id = Integer.parseInt( getValeurChamp( request, CHAMP_ID ) );
+        ServletContext context = request.getServletContext();
+        String uploadPath = context.getRealPath( FOLDER_NAME_UPLOAD );
+        System.out.println( FOLDER_NAME_UPLOAD );
+        System.out.println( uploadPath );
+        // String photoProfil = getValeurChamp( request, CHAMP_PHOTO_PROFIL );
+
+        Employe employe = new Employe();
+        employeDAO = new EmployeDAO();
+        employe = employeDAO.getEmploye( id );
+
+        /* Validation du photo de Profil. */
+        String nomFichier = null;
+        InputStream contenuFichier = null;
+        try {
+            Part part = request.getPart( CHAMP_PHOTO_PROFIL );
+            /*
+             * Il faut déterminer s'il s'agit bien d'un champ de type fichier :
+             * on délègue cette opération à la méthode utilitaire
+             * getNomFichier().
+             */
+            nomFichier = getNomFichier( part );
+
+            /*
+             * Si la méthode a renvoyé quelque chose, il s'agit donc d'un champ
+             * de type fichier (input type="file").
+             */
+            if ( nomFichier != null && !nomFichier.isEmpty() ) {
+                /*
+                 * Antibug pour Internet Explorer, qui transmet pour une raison
+                 * mystique le chemin du fichier local à la machine du client...
+                 * 
+                 * Ex : C:/dossier/sous-dossier/fichier.ext
+                 * 
+                 * On doit donc faire en sorte de ne sélectionner que le nom et
+                 * l'extension du fichier, et de se débarrasser du superflu.
+                 */
+                nomFichier = nomFichier.substring( nomFichier.lastIndexOf( '/' ) + 1 )
+                        .substring( nomFichier.lastIndexOf( '\\' ) + 1 );
+
+                /* Récupération du contenu du fichier */
+                contenuFichier = part.getInputStream();
+
+            }
+        } catch ( IllegalStateException e ) {
+            /*
+             * Exception retournée si la taille des données dépasse les limites
+             * définies dans la section <multipart-config> de la déclaration de
+             * notre servlet d'upload dans le fichier web.xml
+             */
+            e.printStackTrace();
+            setErreur( CHAMP_PHOTO_PROFIL, "Les données envoyées sont trop volumineuses." );
+        } catch ( IOException e ) {
+            /*
+             * Exception retournée si une erreur au niveau des répertoires de
+             * stockage survient (répertoire inexistant, droits d'accès
+             * insuffisants, etc.)
+             */
+            e.printStackTrace();
+            setErreur( CHAMP_PHOTO_PROFIL, "Erreur de configuration du serveur." );
+        } catch ( ServletException e ) {
+            /*
+             * Exception retournée si la requête n'est pas de type
+             * multipart/form-data. Cela ne peut arriver que si l'utilisateur
+             * essaie de contacter la servlet d'upload par un formulaire
+             * différent de celui qu'on lui propose... pirate ! :|
+             */
+            e.printStackTrace();
+            setErreur( CHAMP_PHOTO_PROFIL,
+                    "Ce type de requête n'est pas supporté, merci d'utiliser le formulaire prévu pour envoyer votre fichier." );
+        }
+
+        /* Si aucune erreur n'est survenue jusqu'à présent */
+        if ( erreurs.isEmpty() ) {
+            try {
+                validationFichier( nomFichier, contenuFichier );
+            } catch ( Exception e ) {
+                setErreur( CHAMP_PHOTO_PROFIL, e.getMessage() );
+            }
+            employe.setPhotoProfile( nomFichier );
+        }
+
+        /* Si aucune erreur n'est survenue jusqu'à présent */
+        if ( erreurs.isEmpty() ) {
+            /* Écriture du fichier sur le disque */
+            try {
+                ecrireFichier( contenuFichier, nomFichier, uploadPath );
+            } catch ( Exception e ) {
+                setErreur( CHAMP_PHOTO_PROFIL, "Erreur lors de l'écriture du fichier sur le disque." );
+            }
+        }
+
+        /* Initialisation du résultat global de la validation. */
+        if ( erreurs.isEmpty() ) {
+            resultat = "la photo de profil est modifié avec succès";
+        } else {
+            resultat = "Echec lors de la modification de la photo de profil";
         }
 
         return employe;

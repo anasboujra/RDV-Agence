@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <div class="app-sidebar sidebar-shadow">
 
@@ -48,18 +48,6 @@
                          <a href="employe">
                              <i class="metismenu-icon pe-7s-display2"></i>
                              Afficher Employe
-                         </a>
-                     </li>
-                     <li>
-                         <a href="?do=ajouter">
-                             <i class="metismenu-icon pe-7s-display2"></i>
-                             Ajouter Employe
-                         </a>
-                     </li>
-                     <li>
-                         <a href="?do=modifier">
-                             <i class="metismenu-icon pe-7s-display2"></i>
-                             Modifier Employe
                          </a>
                      </li>
                      <li class="app-sidebar__heading">Publication</li>

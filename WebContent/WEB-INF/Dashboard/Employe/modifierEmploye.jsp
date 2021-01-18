@@ -33,11 +33,17 @@
 				    <div class="card-body pt-3">
 				    	<div class="float-right mb-4">
 				    		<img src="inc/inc_Dashboard/assets/images/<c:out value="${employe.photoProfile }"/>" class="d-block img-fluid img-employe">
+				    		<a href="?do=modifierPhotoProfil&id=<c:out value="${employe.id }"/>">Modifier la photo</a>
 				    	</div>
 				        <form action="employe" method="post" class="updateFormEmploye">
 				        
 				       		<!-- Un champ hidden pour savoir le type de l'action -->
 				        	<input type="hidden" name="action" value="modifier">
+				        	
+				        	
+				        	<!-- Un champ hidden pour savoir l'id de l'employe -->
+				        	<input type="hidden" name="id" value="<c:out value="${employe.id }"/>">
+				        	
 				        	
 				        	<!-- Afficher le resultat -->
 				        	<c:if test = "${formulaire != null }">
@@ -177,7 +183,7 @@
 				                <div class="name">Mot de passe</div>
 				                <div class="value">
 				                    <div class="input-group">
-				                        <input class="input--style-5" type="password" name="password" value="<c:out value="${employe.getPassword() }"/>">
+				                        <input class="input--style-5" type="password" name="password" placeholder="<c:out value="Laissez le champ vide si vous ne souhaitez pas modifier le mot de passe"/>">
 				                    </div>
 				                </div>
 				            </div>
@@ -212,49 +218,6 @@
 	                                <div class="value">
 	                                    <div class="alert alert-danger mb-2 py-2" role="alert">
 	                                        <c:out value="${formulaire.erreurs['numTelephone'] }"/>
-	                                    </div>
-	                                </div>
-	                            </div>
-                            </c:if>
-                            
-				            <div class="form-row mb-4">
-				                <div class="name">Date de début</div>
-				                <div class="value">
-				                    <div class="input-group">
-				                        <input class="input--style-5" type="text" name="dateDebut" value="<c:out value="${todayDate }" />">
-				                    </div>
-				                </div>
-				            </div>
-				            
-				            <c:if test="${!empty formulaire.erreurs['dateDebut']  }">
-					            <!-- Afficher l'erreur dans ce bloc -->
-					            
-				            	 <div class="form-row error mb-2">
-	                                <div class="name"></div>
-	                                <div class="value">
-	                                    <div class="alert alert-danger mb-2 py-2" role="alert">
-	                                        <c:out value="${formulaire.erreurs['dateDebut'] }"/>
-	                                    </div>
-	                                </div>
-	                            </div>
-                            </c:if>
-                            
-				            <div class="form-row mb-4">
-				            	<div class="name">Photo de profil</div>
-				            	<div class="value custom-file">
-							      	<input type="file" class="custom-file-input input--style-5" id="customFile" name="photoProfil" value="<c:out value="${employe.getPhotoProfile() }"/>">
-							      	<label class="custom-file-label" for="customFile">Choisir un fichier</label>
-							    </div>
-				            </div>
-				            
-				            <c:if test="${!empty formulaire.erreurs['photoProfil']  }">
-					            <!-- Afficher l'erreur dans ce bloc -->
-					            
-				            	 <div class="form-row error mb-2">
-	                                <div class="name"></div>
-	                                <div class="value">
-	                                    <div class="alert alert-danger mb-2 py-2" role="alert">
-	                                        <c:out value="${formulaire.erreurs['photoProfil'] }"/>
 	                                    </div>
 	                                </div>
 	                            </div>
