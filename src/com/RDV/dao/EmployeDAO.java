@@ -1,13 +1,8 @@
 package com.RDV.Dao;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.Query;
-
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-
 import com.RDV.beans.Employe;
 import com.RDV.util.HibernateUtil;
 

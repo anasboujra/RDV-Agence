@@ -8,6 +8,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.service.ServiceRegistry;
 
+import com.RDV.beans.Annonce;
 import com.RDV.beans.Client;
 import com.RDV.beans.Commentaires;
 import com.RDV.beans.Employe;
@@ -47,6 +48,7 @@ public class HibernateUtil {
     configuration.addAnnotatedClass(Publication.class);
     configuration.addAnnotatedClass(Client.class);
     configuration.addAnnotatedClass(Commentaires.class);
+    configuration.addAnnotatedClass(Annonce.class);
      
 
     ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();

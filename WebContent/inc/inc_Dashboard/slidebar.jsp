@@ -65,7 +65,14 @@
                      <li class="app-sidebar__heading">Publication</li>
                             <li>
                                 <a href="publication">
-                                    <i class="fas fa-edit"></i> Publication
+                                    <i style="margin:10px;" class="fas fa-edit"></i>
+                                     Publication
+                                </a>
+                            </li>
+                            <li>
+                                <a href="annonce">
+                                    <i style="margin:10px;" class="fab fa-adversal"></i>
+                                     Annonce
                                 </a>
                             </li>
                             <li class="app-sidebar__heading">Clients</li>

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebFilter(
 		urlPatterns = {
-		        "/dashboard","/employe","/Client","/reservation","/Commentaires"
+		        "/dashboard/*"
 	    }
 		)
 public class DashboardFilter implements Filter {

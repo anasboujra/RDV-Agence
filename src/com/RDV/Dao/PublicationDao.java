@@ -128,7 +128,7 @@ public class PublicationDao {
 	            System.out.println("Ana hona");
 	            publications = (ArrayList<Publication>) session.createQuery("from Publication").getResultList();
 	            System.out.println("Ana hona2");
-	            System.out.println(publications);
+	            
 	            // commit transaction
 	            transaction.commit();
 	        } catch (Exception e) {

@@ -131,11 +131,16 @@ public class DashboardPublication extends HttpServlet {
 
 		        Publication publication = formulaire.creerPublication(request);
 		        
-		        request.setAttribute( ATT_FORM, formulaire );
-		        request.setAttribute( ATT_PUBLICATION, publication );
+		        System.out.println(publication.getTitre() + publication.getContenu());
+		        
+		        System.out.println(formulaire.getErreurs());
+		        
+		        
 		        
 		        if ( formulaire.getErreurs().isEmpty() ) {
 		            publicationDao.updatePublication(publication);
+		            request.setAttribute( ATT_FORM, formulaire );
+			        request.setAttribute( ATT_PUBLICATION, publication );
 		            response.sendRedirect( request.getContextPath() + "/" + ATT_PUBLICATION );
 		        }
 		        else {
