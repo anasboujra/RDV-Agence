@@ -1,4 +1,6 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import url("https://fonts.googleapis.com/css?family=Roboto|Varela+Round");
 /* Styles for wrapping the search box */
 
 .main {
@@ -39,8 +41,7 @@
 
 
  .iconDetails {
- margin-left:2%;
-float:left; 
+ margin-left:17px;
 height:40px;
 width:40px; 
 } 
@@ -108,10 +109,7 @@ td {
         border-radius: 5px;
         font-size: 13px;
         padding: 10px 15px 25px;
-    }
-    .modal-confirm .modal-footer a {
-        color: #999;
-    }       
+    }    
     .modal-confirm .icon-box {
         width: 80px;
         height: 80px;
@@ -133,13 +131,13 @@ td {
         background: #60c7c1;
         text-decoration: none;
         transition: all 0.4s;
-        line-height: normal;
         min-width: 120px;
         border: none;
         min-height: 40px;
         border-radius: 3px;
         margin: 0 5px;
         outline: none !important;
+        font-size: 0.9rem;
     }
     .modal-confirm .btn-info {
         background: #c1c1c1;
@@ -149,6 +147,7 @@ td {
     }
     .modal-confirm .btn-danger {
         background: #f15e5e;
+        line-height:2;
     }
     .modal-confirm .btn-danger:hover, .modal-confirm .btn-danger:focus {
         background: #ee3535;
@@ -5370,5 +5369,20 @@ th, td {
 }
 
 
+.mr-3, .mx-3 {
+    margin-right: 0.4rem !important;
+}
 
+.results tr[visible='false'],
+.no-result{
+  display:none;
+}
 
+.results tr[visible='true']{
+  display:table-row;
+}
+
+.counter{
+  padding:8px; 
+  color:#ccc;
+}
