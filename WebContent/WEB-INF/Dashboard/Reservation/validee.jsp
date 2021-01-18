@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
-<title>Réservations en attentes</title>
+<title>Réservations validées</title>
 <link href="inc/inc_Dashboard/css/main.css" rel="stylesheet">
 <link href='inc/inc_Dashboard/assets/lib-calendrier/main.css' rel='stylesheet' />
 <link href="inc/inc_Dashboard/css/commentaires.css" rel="stylesheet">
@@ -26,8 +26,8 @@
 				                    <i class="pe-7s-car icon-gradient bg-warm-flame">
 				                    </i>
 				                </div>
-				                <div>Réservations en attentes
-				                    <div class="page-title-subheading">Les réservations qui sont pas encore acceptée ou refusée</div>
+				                <div>Réservations validées
+				                    <div class="page-title-subheading">Les réservations validées</div>
 				                </div>
 				            </div>
 				            <div class="page-title-actions">

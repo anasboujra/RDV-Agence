@@ -1,6 +1,8 @@
 package com.RDV.servlets;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,16 +32,24 @@ public class DashboardReservation extends HttpServlet {
 			this.getServletContext().getRequestDispatcher("/WEB-INF/Dashboard/Reservation/reservation.jsp").forward(request, response);
 		}
 		else if(action.equals("acceptee")) {
-			this.getServletContext().getRequestDispatcher("/WEB-INF/Dashboard/Reservation/reservation.jsp").forward(request, response);
+			List<Reservation> listeReservations = reservationDAO.getReservations("acceptee");
+			request.setAttribute("listeReservations", listeReservations);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/Dashboard/Reservation/acceptee.jsp").forward(request, response);
 		}
 		else if(action.equals("enAttente")) {
+			List<Reservation> listeReservations = reservationDAO.getReservations("enAttente");
+			request.setAttribute("listeReservations", listeReservations);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/Dashboard/Reservation/enAttente.jsp").forward(request, response);
 		}
 		else if(action.equals("refusee")) {
-			this.getServletContext().getRequestDispatcher("/WEB-INF/Dashboard/Reservation/reservation.jsp").forward(request, response);
+			List<Reservation> listeReservations = reservationDAO.getReservations("refusee");
+			request.setAttribute("listeReservations", listeReservations);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/Dashboard/Reservation/refusee.jsp").forward(request, response);
 		}
 		else if(action.equals("validee")) {
-			this.getServletContext().getRequestDispatcher("/WEB-INF/Dashboard/Reservation/reservation.jsp").forward(request, response);
+			List<Reservation> listeReservations = reservationDAO.getReservations("validee");
+			request.setAttribute("listeReservations", listeReservations);
+			this.getServletContext().getRequestDispatcher("/WEB-INF/Dashboard/Reservation/validee.jsp").forward(request, response);
 		}
 	}
 

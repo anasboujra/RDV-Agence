@@ -32,10 +32,16 @@
 				                </div>
 				            </div>
 				            <div class="page-title-actions">
-				                <button type="button" class="btn mr-3 btn-success" data-toggle="modal" data-target=".ajouter-reservation">Ajouter une Réservation</button>
-			                    <a href="?action=enAttente">
-			                    	<button type="button" data-toggle="tooltip" class="btn-shadow mr-3 btn btn-warning">Réservations en attente (3)</button>
-			                    </a>
+				                <button type="button" class="btn mr-3 btn-success" data-toggle="modal" data-target=".ajouter-reservation">Ajouter une Réservation</button>			                    
+			                    <div class="dropdown d-inline-block">
+		                           <button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-info">Liste des réservations</button>
+		                           <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
+		                               <a href="?action=enAttente" tabindex="0" class="	dropdown-item">Réservations en attente (3)</a>
+		                               <a href="?action=acceptee" tabindex="0" class="	dropdown-item">Réservations acceptées</a>
+		                               <a href="?action=validee" tabindex="0" class="	dropdown-item">Réservations validées</a>
+		                               <a href="?action=refusee" tabindex="0" class="	dropdown-item">Réservations refusées</a>
+		                           </div>
+		                       	</div>
 				       		</div>
 						</div>
 					</div>
@@ -121,7 +127,7 @@
 	          arg.event.remove()
 	        }
 	      },
-	      editable: true,
+	      editable: false,
 	      dayMaxEvents: true, // allow "more" link when too many events
 	      events: [
 	          {title: 'Anas Boujra', start: '2021-01-04T10:00:00', end: '2021-01-04T10:30:00'},
