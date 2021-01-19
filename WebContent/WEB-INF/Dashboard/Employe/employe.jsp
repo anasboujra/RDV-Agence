@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
 <title>Gestion Employe</title>
 <link href="inc/inc_Dashboard/css/main.css" rel="stylesheet">
-<link href="inc/inc_Dashboard/css/employe.css?version=6" rel="stylesheet">
+<link href="inc/inc_Dashboard/css/employe.css?version=7" rel="stylesheet">
 </head>
 <body>
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
@@ -106,11 +106,13 @@
 	                                                <i id="suspend-btn" class="fas fa-ban"></i>
 	                                            </a>
 	                                        </li>
-	                                        <li class="list-inline-item mr-1">
-	                                           	<a href="#" data-toggle="modal" data-target="#confirm-conge" class="modal-trigger" data-href="?do=suspendre&id=<c:out value="${employe.id }"/>">
-	                                                <i id="payment-btn" class="fas fa-cash-register"></i>
-	                                            </a>
-	                                        </li>
+	                                        <c:if test="${employe.showPaymentOption == 1 }">
+		                                        <li class="list-inline-item mr-1">
+		                                           	<a href="#" data-toggle="modal" data-target="#confirm-payment" class="modal-trigger" data-href="?do=payer&id=<c:out value="${employe.id }"/>">
+		                                                <i id="payment-btn" class="fas fa-cash-register"></i>
+		                                            </a>
+		                                        </li>
+	                                        </c:if>
 	                                        <li class="list-inline-item float-right mr-3">
 	                                            <a href="?do=modifier&id=<c:out value="${employe.id }"/>">
 	                                                <i id="edit-btn" class="fas fa-edit"></i>
@@ -188,11 +190,6 @@
 	                                                <i id="suspend-btn" class="fas fa-ban"></i>
 	                                            </a>
 	                                        </li>
-	                                        <li class="list-inline-item mr-1">
-	                                           	<a href="#" data-toggle="modal" data-target="#confirm-conge" class="modal-trigger" data-href="?do=suspendre&id=<c:out value="${employe.id }"/>">
-	                                                <i id="payment-btn" class="fas fa-cash-register"></i>
-	                                            </a>
-	                                        </li>
 	                                        <li class="list-inline-item float-right mr-3">
 	                                            <a href="?do=modifier&id=<c:out value="${employe.id }"/>">
 	                                                <i id="edit-btn" class="fas fa-edit"></i>
@@ -263,6 +260,32 @@
                     <button type="button" class="btn btn-secondary btn-cancel" data-dismiss="modal">Cancel</button>
                     <a class="btn btn-primary btn-suspend btn-ok">
                         <i class="fas fa-trash-alt mr-3"></i>Suspend
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Payment Confirmation Dialog -->
+
+    <div class="modal fade" id="confirm-payment" tabindex="-1" role="dialog" aria-labelledby="confirm-payment" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header mb-3">
+                    <div class="logo-suspend">
+                        <i class="fas fa-exclamation"></i>
+                    </div>
+                </div>
+                <div class="modal-body text-center mt-4">
+                    <b>Are you sure ?</b>
+                    <span class="d-block mt-2">
+                       Do you really want to pay this employe ?
+                    </span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-cancel" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary btn-payer btn-ok">
+                        <i class="fas fa-trash-alt mr-3"></i>Payer
                     </a>
                 </div>
             </div>

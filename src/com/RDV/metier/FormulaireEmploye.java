@@ -109,8 +109,8 @@ public class FormulaireEmploye {
         } catch ( Exception e ) {
             setErreur( CHAMP_PASSWORD, e.getMessage() );
         }
-        employe.setPassword( password );
-        employe.setOldPassword( password );
+        employe.setPassword( crypterMotDePasse( password ) );
+        employe.setOldPassword( crypterMotDePasse( password ) );
 
         /* Validation du numero de telephone. */
         try {
@@ -284,7 +284,7 @@ public class FormulaireEmploye {
         }
         employe.setOldPassword( employe.getPassword() );
         if ( password != null ) {
-            employe.setPassword( password );
+            employe.setPassword( crypterMotDePasse( password ) );
         } else {
             employe.setPassword( employe.getPassword() );
         }
@@ -480,6 +480,14 @@ public class FormulaireEmploye {
         } else {
             throw new Exception( "Merci de saisir votre mot de passe." );
         }
+    }
+
+    /**
+     * Valide le mot de passe saisi.
+     */
+    private String crypterMotDePasse( String motDePasse ) {
+        String sha256hex = org.apache.commons.codec.digest.DigestUtils.sha256Hex( motDePasse );
+        return sha256hex;
     }
 
     /**
