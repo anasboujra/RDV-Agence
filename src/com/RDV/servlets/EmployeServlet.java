@@ -145,6 +145,7 @@ public class EmployeServlet extends HttpServlet {
 
     private void insertEmploye( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
+        TraitementEmploye traitement = new TraitementEmploye();
 
         FormulaireEmploye formulaire = new FormulaireEmploye();
 
@@ -154,6 +155,9 @@ public class EmployeServlet extends HttpServlet {
             employeDao.saveEmploye( employe );
         }
         System.out.println( employe.getNom() + " " + employe.getPhotoProfile() );
+
+        String todayDate = traitement.getDate();
+        request.setAttribute( "todayDate", todayDate );
 
         request.setAttribute( FORMULAIRE, formulaire );
         request.setAttribute( EMPLOYE, employe );

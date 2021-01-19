@@ -76,7 +76,7 @@
 	                                <div class="Employe-info-list d-flex justify-content-between pr-4 mt-3">
 	                                    <ul class="list">
 	                                        <li>
-	                                            <span class="list-span"><i class="fas fa-phone-alt mr-2"></i></i><c:out value="${employe.numTele }"/></span>
+	                                            <span class="list-span"><i class="fas fa-phone-alt mr-2"></i><c:out value="${employe.numTele }"/></span>
 	                                        </li>
 	                                        <li>
 	                                            <span class="list-span"><i class="fas fa-map-marker-alt mr-2"></i><c:out value="${employe.ville }"/></span>

@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -152,6 +153,15 @@ public class FormulaireEmploye {
 
                 /* Récupération du contenu du fichier */
                 contenuFichier = part.getInputStream();
+
+                try {
+                    ImageIO.read( contenuFichier ).toString();
+                    // It's an image (only BMP, GIF, JPG and PNG are
+                    // recognized).
+
+                } catch ( Exception e ) {
+                    setErreur( CHAMP_PHOTO_PROFIL, "Le type d'une image allouée est : Bmp, Gif, Jpg and Png" );
+                }
 
             }
         } catch ( IllegalStateException e ) {
@@ -352,6 +362,15 @@ public class FormulaireEmploye {
 
                 /* Récupération du contenu du fichier */
                 contenuFichier = part.getInputStream();
+
+                try {
+                    ImageIO.read( contenuFichier ).toString();
+                    // It's an image (only BMP, GIF, JPG and PNG are
+                    // recognized).
+
+                } catch ( Exception e ) {
+                    setErreur( CHAMP_PHOTO_PROFIL, "Le type d'une image allouée est : Bmp, Gif, Jpg and Png" );
+                }
 
             }
         } catch ( IllegalStateException e ) {
