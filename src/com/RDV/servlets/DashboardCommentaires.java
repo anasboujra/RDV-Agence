@@ -2,6 +2,7 @@ package com.RDV.servlets;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
 
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.RDV.Dao.CommentaireDao;
-import com.ibm.icu.text.SimpleDateFormat;
 
 
 

@@ -202,8 +202,8 @@ public class FormulaireEmploye {
         // String photoProfil = getValeurChamp( request, CHAMP_PHOTO_PROFIL );
 
         Employe employe = new Employe();
-        employeDAO = new EmployeDAO();
-        employe = employeDAO.getEmploye( id );
+        employeDAO = new EmployeDAO(Employe.class);
+        employe = (Employe) employeDAO.getById(id);
 
         /* Validation du champ cin. */
         try {
@@ -289,8 +289,8 @@ public class FormulaireEmploye {
         // String photoProfil = getValeurChamp( request, CHAMP_PHOTO_PROFIL );
 
         Employe employe = new Employe();
-        employeDAO = new EmployeDAO();
-        employe = employeDAO.getEmploye( id );
+        employeDAO = new EmployeDAO(Employe.class);
+        employe = (Employe) employeDAO.getById( id );
 
         /* Validation du photo de Profil. */
         String nomFichier = null;
