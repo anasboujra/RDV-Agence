@@ -3,6 +3,8 @@ package com.RDV.servlets;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+
 import com.RDV.Dao.PublicationDao;
 import com.RDV.beans.Publication;
 import com.RDV.metier.PublicationValidation;
@@ -24,8 +26,9 @@ public class DashboardPublication extends HttpServlet {
 	
 	 private PublicationDao publicationDao;
 
-	    public void init() {
-	        publicationDao = new PublicationDao();
+	     
+		public void init() {
+	    	publicationDao = new PublicationDao(Publication.class);
 	    }
     public DashboardPublication() {
         super();
@@ -82,8 +85,9 @@ public class DashboardPublication extends HttpServlet {
 		 
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void listPublications(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-				ArrayList < Publication > publications = (ArrayList<Publication>) publicationDao.getAllPublications();
+				ArrayList < Publication > publications = (ArrayList<Publication>) publicationDao.getAll("from Publication");
 				System.out.println(publications);
 		        request.setAttribute(ATT_PUBLICATIONS, publications);
 		        this.getServletContext().getRequestDispatcher( VUE_PUBLICATION ).forward( request, response );;
@@ -97,7 +101,7 @@ public class DashboardPublication extends HttpServlet {
 		    private void modifierForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
 		        
 		    	int id = Integer.parseInt( request.getParameter( "id" ) );
-		        Publication publication = publicationDao.getPublication(id);
+		        Publication publication = (Publication) publicationDao.getById(id);
 
 		        request.setAttribute( ATT_PUBLICATION, publication);
 
@@ -105,7 +109,8 @@ public class DashboardPublication extends HttpServlet {
 
 		    }
 
-		    private void enregistrerPublication(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+		    @SuppressWarnings("unchecked")
+			private void enregistrerPublication(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
 		    	 PublicationValidation formulaire = new PublicationValidation();
 
 		         Publication publication = formulaire.creerPublication(request);
@@ -114,7 +119,7 @@ public class DashboardPublication extends HttpServlet {
 		         request.setAttribute( ATT_PUBLICATION, publication );
 
 		         if ( formulaire.getErreurs().isEmpty() ) {
-		             publicationDao.savePublication(publication);
+		             publicationDao.save(publication);
 		             response.sendRedirect( request.getContextPath() + "/" + ATT_PUBLICATION );
 		         }
 		         else
@@ -126,7 +131,8 @@ public class DashboardPublication extends HttpServlet {
  
 		    }
 
-		    private void modifierPublication(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+		    @SuppressWarnings("unchecked")
+			private void modifierPublication(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
 		    	PublicationValidation formulaire = new PublicationValidation();
 
 		        Publication publication = formulaire.creerPublication(request);
@@ -138,7 +144,7 @@ public class DashboardPublication extends HttpServlet {
 		        
 		        
 		        if ( formulaire.getErreurs().isEmpty() ) {
-		            publicationDao.updatePublication(publication);
+		            publicationDao.update(publication);
 		            request.setAttribute( ATT_FORM, formulaire );
 			        request.setAttribute( ATT_PUBLICATION, publication );
 		            response.sendRedirect( request.getContextPath() + "/" + ATT_PUBLICATION );
@@ -153,7 +159,7 @@ public class DashboardPublication extends HttpServlet {
 		    private void supprimerPublication(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
 		        int id = Integer.parseInt(request.getParameter("id"));
 		        System.out.println(id);
-		        publicationDao.deletePublication(id);
+		        publicationDao.delete(id);
 		        response.sendRedirect( request.getContextPath() + "/" + ATT_PUBLICATION );
 		    }
 

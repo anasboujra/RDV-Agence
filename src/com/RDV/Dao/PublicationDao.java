@@ -1,12 +1,5 @@
 package com.RDV.Dao;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
-import com.RDV.beans.Publication;
-import com.RDV.util.HibernateUtil;
+ 
 
 /**
  * CRUD database operations
@@ -14,9 +7,16 @@ import com.RDV.util.HibernateUtil;
  *
  */
 
-public class PublicationDao {
+@SuppressWarnings("rawtypes")
+public class PublicationDao extends DaoFactory {
  
-	    public void savePublication(Publication publication) {
+	    @SuppressWarnings("unchecked")
+		public PublicationDao( Class persistentClass) {
+		super(persistentClass);
+		// TODO Auto-generated constructor stub
+	}
+
+		/*public void savePublication(Publication publication) {
 	        Transaction transaction = null;
 	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 	            // start a transaction
@@ -34,17 +34,21 @@ public class PublicationDao {
 	            }
 	            e.printStackTrace();
 	        }
-	    }
+	    }*/
 
 	    /**
 	     * Update User
 	     * @param user
 	     */
-	    public void updatePublication(Publication publication) {
+	    /*public void updatePublication(Publication publication) {
 	        Transaction transaction = null;
-	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+	        try (Session session = HibernateUtil.getSessionFactory().openSession()
+	        		) {
 	            // start a transaction
 	            transaction = session.beginTransaction();
+	            
+	            //persistenceManager.findObjectById(publication .getId());
+
 	            // save the student object
 	            session.update(publication);
 	            // commit transaction
@@ -55,13 +59,13 @@ public class PublicationDao {
 	            }
 	            e.printStackTrace();
 	        }
-	    }
+	    }*/
 
 	    /**
 	     * Delete User
 	     * @param id
 	     */
-	    public void deletePublication(int id) {
+	   /* public void deletePublication(int id) {
 
 	        Transaction transaction = null;
 	        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -83,14 +87,14 @@ public class PublicationDao {
 	            }
 	            e.printStackTrace();
 	        }
-	    }
+	    }*/
 
 	    /**
 	     * Get User By ID
 	     * @param id
 	     * @return
 	     */
-	    public Publication getPublication(int id) {
+	    /*public Publication getPublication(int id) {
 
 	        Transaction transaction = null;
 	        Publication publication = null;
@@ -108,13 +112,13 @@ public class PublicationDao {
 	            e.printStackTrace();
 	        }
 	        return publication;
-	    }
+	    }*/
 
 	    /**
 	     * Get all Users
 	     * @return
 	     */
-	    	
+	    /*
 	    @SuppressWarnings("unchecked")
 	    public List <Publication > getAllPublications() {
 
@@ -131,15 +135,17 @@ public class PublicationDao {
 	            
 	            // commit transaction
 	            transaction.commit();
+	            session.close();
 	        } catch (Exception e) {
+	        	 transaction.rollback();
 	            if (transaction != null) {
-	                transaction.rollback();
+	                
 	            }
 	            e.printStackTrace();
 	        }
  
 	        return publications;
-	    }
+	    }*/
 	}
 
 

@@ -1,6 +1,6 @@
 package com.RDV.Dao;
 
-import java.util.ArrayList;
+
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -8,9 +8,16 @@ import org.hibernate.Transaction;
 import com.RDV.beans.Employe;
 import com.RDV.util.HibernateUtil;
 
-public class EmployeDAO {
+@SuppressWarnings("rawtypes")
+public class EmployeDAO extends DaoFactory{
 
-    public void saveEmploye( Employe employe ) {
+    @SuppressWarnings("unchecked")
+	public EmployeDAO(Class persistentClass) {
+		super(persistentClass);
+		// TODO Auto-generated constructor stub
+	}
+
+	/*public void saveEmploye( Employe employe ) {
         Transaction transaction = null;
         try ( Session session = HibernateUtil.getSessionFactory().openSession() ) {
             // start a transaction
@@ -25,9 +32,9 @@ public class EmployeDAO {
             }
             e.printStackTrace();
         }
-    }
+    }*/
 
-    public void updateEmploye( Employe employe ) {
+   /*public void updateEmploye( Employe employe ) {
         Transaction transaction = null;
         try ( Session session = HibernateUtil.getSessionFactory().openSession() ) {
             // start a transaction
@@ -42,9 +49,9 @@ public class EmployeDAO {
             }
             e.printStackTrace();
         }
-    }
+    }*/
 
-    public void deleteEmploye( int id ) {
+   /* public void deleteEmploye( int id ) {
 
         Transaction transaction = null;
         try ( Session session = HibernateUtil.getSessionFactory().openSession() ) {
@@ -66,9 +73,9 @@ public class EmployeDAO {
             }
             e.printStackTrace();
         }
-    }
+    }*/
 
-    public Employe getEmploye( int id ) {
+   /* public Employe getEmploye( int id ) {
 
         Transaction transaction = null;
         Employe employe = null;
@@ -86,8 +93,33 @@ public class EmployeDAO {
             e.printStackTrace();
         }
         return employe;
-    }
+    }*/
+    
+    public Employe validate(String email, String password) {
 
+        Transaction transaction = null;
+        Employe employe = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            // start a transaction
+            transaction = session.beginTransaction();
+            // get an user object
+            employe = (Employe) session.createQuery("FROM Employe E WHERE E.email = :email").setParameter("email", email).uniqueResult();
+            
+            System.out.println(employe);
+            if (employe != null && employe.getPassword().equals(password)) {
+                return employe;
+            }
+            // commit transaction
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return null;
+    }
+/*
     @SuppressWarnings( "unchecked" )
     public ArrayList<Employe> getAllEmploye() {
 
@@ -109,5 +141,5 @@ public class EmployeDAO {
             e.printStackTrace();
         }
         return listOfEmploye;
-    }
+    }*/
 }

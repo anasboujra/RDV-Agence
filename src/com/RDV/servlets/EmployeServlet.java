@@ -42,7 +42,7 @@ public class EmployeServlet extends HttpServlet {
     }
 
     public void init() {
-        employeDao = new EmployeDAO();
+        employeDao = new EmployeDAO(Employe.class);
     }
 
     protected void doGet( HttpServletRequest request, HttpServletResponse response )
@@ -136,7 +136,8 @@ public class EmployeServlet extends HttpServlet {
         return formater.format( aujourdhui );
     }
 
-    private void insertEmploye( HttpServletRequest request, HttpServletResponse response )
+    @SuppressWarnings("unchecked")
+	private void insertEmploye( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
         FormulaireEmploye formulaire = new FormulaireEmploye();
@@ -144,7 +145,7 @@ public class EmployeServlet extends HttpServlet {
         Employe employe = formulaire.validerEmploye( request );
 
         if ( formulaire.getErreurs().isEmpty() ) {
-            employeDao.saveEmploye( employe );
+            employeDao.save(employe);
         }
         System.out.println( employe.getNom() + " " + employe.getPhotoProfile() );
 
@@ -154,7 +155,8 @@ public class EmployeServlet extends HttpServlet {
         this.getServletContext().getRequestDispatcher( VUE_1 ).forward( request, response );
     }
 
-    private void updateEmploye( HttpServletRequest request, HttpServletResponse response )
+    @SuppressWarnings("unchecked")
+	private void updateEmploye( HttpServletRequest request, HttpServletResponse response )
             throws IOException, ServletException {
 
         FormulaireEmploye formulaire = new FormulaireEmploye();
@@ -166,7 +168,7 @@ public class EmployeServlet extends HttpServlet {
         System.out.println( employe.getPassword() + " " + employe.getOldPassword() );
 
         if ( formulaire.getErreurs().isEmpty() ) {
-            employeDao.updateEmploye( employe );
+            employeDao.update(employe);
             System.out.println( "test" );
         }
 
@@ -176,7 +178,8 @@ public class EmployeServlet extends HttpServlet {
         this.getServletContext().getRequestDispatcher( VUE_2 ).forward( request, response );
     }
 
-    private void updatePhotoProfil( HttpServletRequest request, HttpServletResponse response )
+    @SuppressWarnings("unchecked")
+	private void updatePhotoProfil( HttpServletRequest request, HttpServletResponse response )
             throws IOException, ServletException {
 
         FormulaireEmploye formulaire = new FormulaireEmploye();
@@ -188,7 +191,7 @@ public class EmployeServlet extends HttpServlet {
         System.out.println( employe.getPassword() + " " + employe.getOldPassword() );
 
         if ( formulaire.getErreurs().isEmpty() ) {
-            employeDao.updateEmploye( employe );
+            employeDao.update(employe);
             System.out.println( "test" );
         }
 
@@ -198,9 +201,10 @@ public class EmployeServlet extends HttpServlet {
         this.getServletContext().getRequestDispatcher( VUE_3 ).forward( request, response );
     }
 
-    private void listEmployes( HttpServletRequest request, HttpServletResponse response )
+    @SuppressWarnings("unchecked")
+	private void listEmployes( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException, ParseException {
-        ArrayList<Employe> allEmployes = employeDao.getAllEmploye();
+        ArrayList<Employe> allEmployes = (ArrayList<Employe>) employeDao.getAll("from Employe");
 
         ArrayList<Employe> employes = new ArrayList<Employe>();
         ArrayList<Employe> suspendEmployes = new ArrayList<Employe>();
@@ -231,7 +235,7 @@ public class EmployeServlet extends HttpServlet {
     private void listEmploye( HttpServletRequest request, HttpServletResponse response, String pageJsp )
             throws ServletException, IOException {
         int id = Integer.parseInt( request.getParameter( "id" ) );
-        Employe employe = employeDao.getEmploye( id );
+        Employe employe = (Employe) employeDao.getById(id);
 
         request.setAttribute( EMPLOYE, employe );
 
@@ -241,25 +245,27 @@ public class EmployeServlet extends HttpServlet {
     private void deleteEmploye( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
         int id = Integer.parseInt( request.getParameter( "id" ) );
-        employeDao.deleteEmploye( id );
+        employeDao.delete(id);
         response.sendRedirect( request.getContextPath() + "/" + EMPLOYE );
     }
 
-    private void suspendEmploye( HttpServletRequest request, HttpServletResponse response )
+    @SuppressWarnings("unchecked")
+	private void suspendEmploye( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
         int id = Integer.parseInt( request.getParameter( "id" ) );
-        Employe employe = employeDao.getEmploye( id );
+        Employe employe = (Employe) employeDao.getById(id);
         employe.setIsConge( 1 );
-        employeDao.updateEmploye( employe );
+        employeDao.update(employe);
         response.sendRedirect( request.getContextPath() + "/" + EMPLOYE );
     }
 
-    private void activateEmploye( HttpServletRequest request, HttpServletResponse response )
+    @SuppressWarnings("unchecked")
+	private void activateEmploye( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
         int id = Integer.parseInt( request.getParameter( "id" ) );
-        Employe employe = employeDao.getEmploye( id );
+        Employe employe = (Employe) employeDao.getById(id);
         employe.setIsConge( 0 );
-        employeDao.updateEmploye( employe );
+        employeDao.update(employe);
         response.sendRedirect( request.getContextPath() + "/" + EMPLOYE );
     }
 

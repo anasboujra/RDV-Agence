@@ -35,7 +35,7 @@ public class DashboardLogin extends HttpServlet {
     }
 
     public void init() {
-        employeDao = new EmployeDAO();
+        employeDao = new EmployeDAO(Employe.class);
     }
 
     

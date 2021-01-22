@@ -1,21 +1,17 @@
 package com.RDV.Dao;
 
-import java.util.ArrayList;
-import java.util.List;
+ 
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
+@SuppressWarnings("rawtypes")
+public class AnnonceDao extends DaoFactory {
 
-import com.RDV.beans.Annonce;
-import com.RDV.util.HibernateUtil;
-
-public class AnnonceDao {
-
-	public AnnonceDao() {
+	@SuppressWarnings("unchecked")
+	public AnnonceDao(Class persistentClass)  {
+		super(persistentClass);
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void saveAnnonce(Annonce annonce) {
+	/*public void saveAnnonce(Annonce annonce) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
@@ -39,7 +35,7 @@ public class AnnonceDao {
      * Update User
      * @param user
      */
-    public void updateAnnonce(Annonce annonce) {
+  /*  public void updateAnnonce(Annonce annonce) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
@@ -60,7 +56,7 @@ public class AnnonceDao {
      * Delete User
      * @param id
      */
-    public void deleteAnnonce(int id) {
+   /* public void deleteAnnonce(int id) {
 
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -89,7 +85,7 @@ public class AnnonceDao {
      * @param id
      * @return
      */
-    public Annonce getAnnonce(int id) {
+   /* public Annonce getAnnonce(int id) {
 
         Transaction transaction = null;
         Annonce annonce = null;
@@ -113,7 +109,7 @@ public class AnnonceDao {
      * Get all Users
      * @return
      */
-    	
+ /*   	
     @SuppressWarnings("unchecked")
     public List <Annonce> getAllAnnonces() {
 
@@ -138,5 +134,5 @@ public class AnnonceDao {
         }
 
         return annonces;
-    }
+    }*/
 }

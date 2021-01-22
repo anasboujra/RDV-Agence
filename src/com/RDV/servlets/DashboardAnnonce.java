@@ -30,7 +30,7 @@ public class DashboardAnnonce extends HttpServlet {
 	private AnnonceDao annonceDao ;
 	
 	 public void init() {
-	        annonceDao = new AnnonceDao();
+	        annonceDao = new AnnonceDao(Annonce.class);
 	    }
        
     /**
@@ -116,8 +116,9 @@ public class DashboardAnnonce extends HttpServlet {
 	}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void listAnnonces(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
-		ArrayList < Annonce > annonces = (ArrayList<Annonce>) annonceDao.getAllAnnonces();
+		ArrayList < Annonce > annonces = (ArrayList<Annonce>) annonceDao.getAll("from Annonce");
         request.setAttribute(ATT_ANNONCES,annonces);
         this.getServletContext().getRequestDispatcher( VUE_ANNONCE ).forward( request, response );;
     }
@@ -130,7 +131,7 @@ public class DashboardAnnonce extends HttpServlet {
     private void modifierForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, ServletException, IOException {
         
     	int id = Integer.parseInt( request.getParameter( "id" ) );
-        Annonce annonce = annonceDao.getAnnonce(id);
+        Annonce annonce = (Annonce) annonceDao.getById(id);
 
         request.setAttribute( ATT_ANNONCE, annonce);
 
@@ -138,7 +139,8 @@ public class DashboardAnnonce extends HttpServlet {
 
     }
     
-    private void enregistrerAnnonce(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+    @SuppressWarnings("unchecked")
+	private void enregistrerAnnonce(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
    	 AnnonceValidation formulaire = new AnnonceValidation();
 
         Annonce annonce = formulaire.crrerAnnonce(request);
@@ -147,7 +149,7 @@ public class DashboardAnnonce extends HttpServlet {
         request.setAttribute( ATT_ANNONCE, annonce );
 
         if ( formulaire.getErreurs().isEmpty() ) {
-            annonceDao.saveAnnonce(annonce);
+            annonceDao.save(annonce);
             response.sendRedirect( request.getContextPath() + "/" + ATT_ANNONCE );
         }
         else
@@ -159,7 +161,8 @@ public class DashboardAnnonce extends HttpServlet {
 
    }
 
-   private void modifierAnnonce(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
+   @SuppressWarnings("unchecked")
+private void modifierAnnonce(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
    	AnnonceValidation formulaire = new AnnonceValidation();
 
        Annonce annonce = formulaire.crrerAnnonce(request);
@@ -168,7 +171,7 @@ public class DashboardAnnonce extends HttpServlet {
        request.setAttribute( ATT_ANNONCE, annonce );
        
        if ( formulaire.getErreurs().isEmpty() ) {
-           annonceDao.updateAnnonce(annonce);
+           annonceDao.update(annonce);
            response.sendRedirect( request.getContextPath() + "/" + ATT_ANNONCE );
        }
        else {
@@ -181,7 +184,7 @@ public class DashboardAnnonce extends HttpServlet {
    private void supprimerPublication(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
        int id = Integer.parseInt(request.getParameter("id"));
        System.out.println(id);
-       annonceDao.deleteAnnonce(id);
+       annonceDao.delete(id);
        response.sendRedirect( request.getContextPath() + "/" + ATT_ANNONCE );
    }
 
