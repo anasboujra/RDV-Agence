@@ -13,18 +13,21 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
-
+ 
+import com.RDV.Dao.PublicationDao;
 import com.RDV.beans.Publication;
  
 
 public final class PublicationValidation {
+	private static final String CHAMP_ID        = "id";
     private static final String CHAMP_TITRE     = "titre";
     private static final String CHAMP_CONTENU   = "contenu";
     private static final String CHAMP_IMAGE     = "image";
     private static final int    TAILLE_TAMPON       = 10485760;
 	private static final String CHEMIN_IMAGE = "/inc/inc_Dashboard/assets/images";
- 
-
+	
+	
+	private PublicationDao publicationDao;
     private String resultat;
     private Map<String, String> erreurs = new HashMap<String, String>();
 
@@ -49,7 +52,7 @@ public final class PublicationValidation {
         String nomFichier = null;
         InputStream contenuFichier = null;
     	
- ;
+ 
  
     	 try {
          	validationTitre(titre);
@@ -110,6 +113,58 @@ public final class PublicationValidation {
                  setErreur( CHAMP_IMAGE, "Erreur lors de l'écriture du fichier sur le disque." );
              }
          }
+        return publication;
+    }
+    
+    /* Cette fonction pour valider les champs lors du modification */
+
+    public Publication modifierPublication( HttpServletRequest request ) throws IOException, ServletException {
+        /* Récupération des champs du formulaire */
+        int id = Integer.parseInt( request.getParameter(CHAMP_ID));
+        String titre = request.getParameter( CHAMP_TITRE );
+    	String contenu = request.getParameter( CHAMP_CONTENU);
+    	ServletContext context = request.getServletContext();
+        String uploadPath = context.getRealPath( CHEMIN_IMAGE );
+        System.out.println( CHEMIN_IMAGE );
+        System.out.println( uploadPath );
+ 
+        // String photoProfil = getValeurChamp( request, CHAMP_PHOTO_PROFIL );
+
+        Publication publication = new Publication();
+        publicationDao = new PublicationDao(Publication.class);
+        publication = (Publication) publicationDao.getById(id);
+
+        try {
+         	validationTitre(titre);
+         } catch ( Exception e ) {
+         setErreur( CHAMP_TITRE, e.getMessage() );
+         }
+         publication.setTitre(titre);
+         
+
+    	 try {
+         	validationContenu(contenu);
+         } catch ( Exception e ) {
+         setErreur( CHAMP_CONTENU, e.getMessage() );
+         }
+         publication.setContenu(contenu);
+         
+ 
+  
+         
+         publication.setIdEmploye(1);
+
+ 
+ 
+ 
+
+        /* Initialisation du résultat global de la validation. */
+        if ( erreurs.isEmpty() ) {
+            resultat = "l'employé est modifié avec succès";
+        } else {
+            resultat = "Echec lors de la modification de l'employé";
+        }
+
         return publication;
     }
 

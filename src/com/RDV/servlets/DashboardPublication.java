@@ -135,7 +135,7 @@ public class DashboardPublication extends HttpServlet {
 			private void modifierPublication(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
 		    	PublicationValidation formulaire = new PublicationValidation();
 
-		        Publication publication = formulaire.creerPublication(request);
+		        Publication publication = formulaire.modifierPublication(request);
 		        
 		        System.out.println(publication.getTitre() + publication.getContenu());
 		        
@@ -146,13 +146,14 @@ public class DashboardPublication extends HttpServlet {
 		        if ( formulaire.getErreurs().isEmpty() ) {
 		            publicationDao.update(publication);
 		            request.setAttribute( ATT_FORM, formulaire );
-			        request.setAttribute( ATT_PUBLICATION, publication );
-		            response.sendRedirect( request.getContextPath() + "/" + ATT_PUBLICATION );
+		        	request.setAttribute( ATT_PUBLICATION, publication );
+		            
+	            response.sendRedirect( request.getContextPath() + "/" + ATT_PUBLICATION );
 		        }
 		        else {
 		        	this.getServletContext().getRequestDispatcher( VUE_MODIFIER ).forward( request, response );
 		        }
-		       
+ 
 		        
 		    }
 
@@ -178,7 +179,7 @@ public class DashboardPublication extends HttpServlet {
 					e2.printStackTrace();
 				}
                 break;
-	        case "modifier":
+	        case "update":
 	            try {
 	   				modifierPublication(request, response);
 	   			} catch (SQLException | IOException e1) {

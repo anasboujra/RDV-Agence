@@ -28,10 +28,13 @@
             <div class="signupForm-ontainer mx-auto px-3 px-sm-0">
 			 	<div class="card card-5">
 				    <div class="card-heading">
-				        <h2 class="title">Modifierr Publication</h2>
+				        <h2 class="title">Modifier Publication</h2>
 				    </div>
 				    <div class="card-body">
-				        <form method="post"  action="publication?action=modifier" enctype="multipart/form-data">
+				   
+				        <form method="post"  action="publication?action=update" enctype="multipart/form-data">
+				        <!-- Un champ hidden pour savoir l'id de l'employe -->
+				        	<input type="hidden" name="id" value="<c:out value="${publication.id }"/>">
 				            <div class="form-row m-b-55">
 				                <div class="name">Titre</div>
 				                <div class="value">

@@ -165,7 +165,7 @@ public class DashboardAnnonce extends HttpServlet {
 private void modifierAnnonce(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, ServletException {
    	AnnonceValidation formulaire = new AnnonceValidation();
 
-       Annonce annonce = formulaire.crrerAnnonce(request);
+       Annonce annonce = formulaire.modifierAnnonce(request);
        
        request.setAttribute( ATT_FORM, formulaire );
        request.setAttribute( ATT_ANNONCE, annonce );

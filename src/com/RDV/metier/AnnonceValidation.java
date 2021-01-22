@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
 
+import com.RDV.Dao.AnnonceDao;
 import com.RDV.beans.Annonce;
 
 public class AnnonceValidation {
@@ -22,12 +23,14 @@ public class AnnonceValidation {
 		// TODO Auto-generated constructor stub
 	}
 	
+	private static final String CHAMP_ID        = "id";
 	private static final String CHAMP_TITRE     = "titre";
     private static final String CHAMP_CONTENU   = "contenu";
     private static final String CHAMP_IMAGE     = "image";
     private static final int    TAILLE_TAMPON       = 10485760;
-	private static final String CHEMIN_IMAGE = "/inc/inc_Dashboard/assets/images/annonces";
+	private static final String CHEMIN_IMAGE = "/inc/inc_Dashboard/assets/images";
 	
+	private AnnonceDao annonceDao;
 	private String resultat;
     private Map<String, String> erreurs = new HashMap<String, String>();
 
@@ -127,6 +130,58 @@ public class AnnonceValidation {
         }
         ecrireFichier( contenuFichier, nomFichier, uploadPath );
        return annonce;
+    }
+    
+    /* Cette fonction pour valider les champs lors du modification */
+
+    public Annonce modifierAnnonce( HttpServletRequest request ) throws IOException, ServletException {
+        /* Récupération des champs du formulaire */
+        int id = Integer.parseInt( request.getParameter(CHAMP_ID));
+        String titre = request.getParameter( CHAMP_TITRE );
+    	String contenu = request.getParameter( CHAMP_CONTENU);
+    	ServletContext context = request.getServletContext();
+        String uploadPath = context.getRealPath( CHEMIN_IMAGE );
+        System.out.println( CHEMIN_IMAGE );
+        System.out.println( uploadPath );
+ 
+        // String photoProfil = getValeurChamp( request, CHAMP_PHOTO_PROFIL );
+
+        Annonce annonce = new Annonce();
+        annonceDao = new AnnonceDao(Annonce.class);
+        annonce = (Annonce) annonceDao.getById(id);
+
+        try {
+         	validationTitre(titre);
+         } catch ( Exception e ) {
+         setErreur( CHAMP_TITRE, e.getMessage() );
+         }
+         annonce.setTitre(titre);
+         
+
+    	 try {
+         	validationContenu(contenu);
+         } catch ( Exception e ) {
+         setErreur( CHAMP_CONTENU, e.getMessage() );
+         }
+         annonce.setContenu(contenu);
+         
+ 
+  
+         
+         annonce.setIdEmploye(1);
+
+ 
+ 
+ 
+
+        /* Initialisation du résultat global de la validation. */
+        if ( erreurs.isEmpty() ) {
+            resultat = "l'employé est modifié avec succès";
+        } else {
+            resultat = "Echec lors de la modification de l'employé";
+        }
+
+        return annonce;
     }
 	
     public void validationTitre(String titre) throws Exception

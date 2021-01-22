@@ -32,6 +32,7 @@
 				    </div>
 				    <div class="card-body">
 				        <form method="post"  action="annonce?action=modifier" enctype="multipart/form-data">
+				        <input type="hidden" name="id" value="<c:out value="${annonce.id }"/>">
 				            <div class="form-row m-b-55">
 				                <div class="name">Titre</div>
 				                <div class="value">
