@@ -41,7 +41,7 @@
 	
 
 <servlet>
-  	<servlet-name>Employe</servlet-name>
+  	<servlet-name>EmployeServlet</servlet-name>
   	<servlet-class>com.RDV.servlets.EmployeServlet</servlet-class>
   	<multipart-config>
 		<max-file-size>10485760</max-file-size> <!-- 10 Mo -->
@@ -51,18 +51,18 @@
 </servlet>
  
 <servlet-mapping>
-  	<servlet-name>Employe</servlet-name>
+  	<servlet-name>EmployeServlet</servlet-name>
   	<url-pattern>/employe</url-pattern>
 </servlet-mapping>
 	
 	
 <servlet>
-  	<servlet-name>Client</servlet-name>
+  	<servlet-name>DashboardClient</servlet-name>
   	<servlet-class>com.RDV.servlets.DashboardClient</servlet-class>
   </servlet>
   
 <servlet-mapping>
-  	<servlet-name>Client</servlet-name>
+  	<servlet-name>DashboardClient</servlet-name>
   	<url-pattern>/Client</url-pattern>
 </servlet-mapping>‏
   
@@ -77,12 +77,12 @@
   </servlet-mapping>
 	
 	<servlet>
-		<servlet-name>Commentaires</servlet-name>
+		<servlet-name>DashboardCommentaires</servlet-name>
 		<servlet-class>com.RDV.servlets.DashboardCommentaires</servlet-class>
 	</servlet>
 	
 	<servlet-mapping>
-		<servlet-name>Commentaires</servlet-name>
+		<servlet-name>DashboardCommentaires</servlet-name>
 		<url-pattern>/Commentaires/*</url-pattern>
 	</servlet-mapping>
   

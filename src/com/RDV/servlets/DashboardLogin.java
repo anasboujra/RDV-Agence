@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.RDV.Dao.EmployeDAO;
 import com.RDV.beans.Employe;
@@ -47,6 +48,7 @@ public class DashboardLogin extends HttpServlet {
  
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 try {
+			 	
 	            authenticate(request, response);
 	        } catch (Exception e) {
 	            // TODO Auto-generated catch block
@@ -58,16 +60,20 @@ public class DashboardLogin extends HttpServlet {
 	
 	  private void authenticate(HttpServletRequest request, HttpServletResponse response)
 			    throws Exception {
+		  
+		  			HttpSession session = request.getSession();
 			        String email = request.getParameter(CHAMP_EMAIL);
 			        String password = request.getParameter(CHAMP_PASSWORD);
 			        
 			        Employe employe = employeDao.validate(email, password);
 
 			        if (employe != null) {
-			        	
-			        	request.setAttribute(ATT_EMPLOYE, employe);
+			        	session.setAttribute(ATT_EMPLOYE, employe);
+			        	//request.setAttribute(ATT_EMPLOYE, employe);
 			            RequestDispatcher dispatcher = request.getRequestDispatcher(VUE_SUCCES);
 			            dispatcher.forward(request, response);
+			        	
+			        	//this.getServletContext().getRequestDispatcher( VUE_SUCCES ).forward( request, response );
 			        } else {
 			        	String erreur = "Impossible de se connecter, Verifiez vos données";
 			        	

@@ -3,7 +3,9 @@
     <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="app-header header-shadow">
             <div class="app-header__logo">
-                <div class="logo-src"></div>
+                <div class="logo-src">
+                	<img src="inc/inc_Dashboard/assets/images/logo-inverse.png">
+                </div>
                 <div class="header__pane ml-auto">
                     <div>
                         <button type="button" class="hamburger close-sidebar-btn hamburger--elastic" data-class="closed-sidebar">
@@ -48,7 +50,7 @@
                             </a>
                         </li>
                         <li class="btn-group nav-item">
-                            <a href="javascript:void(0);" class="nav-link">
+                            <a href="publication" class="nav-link">
                                 <i class="nav-link-icon fa fa-edit"></i>
                                 Projects
                             </a>
@@ -86,7 +88,14 @@
                                         <c:out value="${employe.prenom}"/>
                                     </div>
                                     <div class="widget-subheading">
-                                        
+                                        <c:choose>
+										    <c:when test="${employe.isAdmin=='1'}">
+										        Admin
+										    </c:when>    
+										    <c:otherwise>
+										         Employe
+										    </c:otherwise>
+										</c:choose>                                        
                                     </div>
                                 </div>
                                 <div class="widget-content-right header-user-info ml-3">

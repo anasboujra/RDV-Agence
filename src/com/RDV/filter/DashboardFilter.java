@@ -10,15 +10,13 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet Filter implementation class DashboardFilter
  */
-@WebFilter(
-		urlPatterns = {
-		        "/dashboard/*"
-	    }
-		)
+@WebFilter(servletNames = {"DashboardClient","DashboardPublication","DashboardAnnonce","EmployeServlet","DashboardReservation","DashboardClient","Dashboard"},
+			urlPatterns= {"/dashboard"})
 public class DashboardFilter implements Filter {
 	public static final String ATT_EMPLOYE = "employe";
 	private static final String VUE_LOGIN = "/WEB-INF/Dashboard/login.jsp";
@@ -46,8 +44,10 @@ public class DashboardFilter implements Filter {
 		
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
+		HttpSession session = request.getSession();
+
 		
-		if(request.getAttribute(ATT_EMPLOYE)==null) {
+		if(session.getAttribute(ATT_EMPLOYE)==null) {
 			request.getRequestDispatcher( VUE_LOGIN ).forward( request, response );
 
  

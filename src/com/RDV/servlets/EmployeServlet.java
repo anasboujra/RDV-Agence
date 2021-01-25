@@ -2,11 +2,7 @@ package com.RDV.servlets;
 
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.RDV.Dao.EmployeDAO;
 import com.RDV.beans.Employe;
 import com.RDV.metier.FormulaireEmploye;
-
+import com.RDV.metier.TraitementEmploye;
 
 @MultipartConfig
 public class EmployeServlet extends HttpServlet {
@@ -48,12 +44,16 @@ public class EmployeServlet extends HttpServlet {
 
     protected void doGet( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
+
+        TraitementEmploye traitement = new TraitementEmploye();
+
         String action = request.getParameter( "do" );
-        String todayDate = getDate();
+        String todayDate = traitement.getDate();
         request.setAttribute( "todayDate", todayDate );
         if ( action == null ) {
 
             try {
+                checkEmployes( request, response );
                 listEmployes( request, response );
             } catch ( ServletException e ) {
                 // TODO Auto-generated catch block
@@ -82,6 +82,20 @@ public class EmployeServlet extends HttpServlet {
                 break;
             case "activer":
                 activateEmploye( request, response );
+                break;
+            case "payer":
+                try {
+                    payerEmploye( request, response );
+                } catch ( ServletException e1 ) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                } catch ( IOException e1 ) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                } catch ( ParseException e1 ) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
                 break;
             case "modifierPhotoProfil":
                 listEmploye( request, response, VUE_3 );
@@ -129,17 +143,10 @@ public class EmployeServlet extends HttpServlet {
 
     }
 
-    private String getDate() {
-        Date aujourdhui = new Date();
-
-        SimpleDateFormat formater = new SimpleDateFormat( "dd-MM-yyyy" );
-        System.out.println( formater.format( aujourdhui ) );
-        return formater.format( aujourdhui );
-    }
-
     @SuppressWarnings("unchecked")
 	private void insertEmploye( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
+        TraitementEmploye traitement = new TraitementEmploye();
 
         FormulaireEmploye formulaire = new FormulaireEmploye();
 
@@ -149,6 +156,9 @@ public class EmployeServlet extends HttpServlet {
             employeDao.save(employe);
         }
         System.out.println( employe.getNom() + " " + employe.getPhotoProfile() );
+
+        String todayDate = traitement.getDate();
+        request.setAttribute( "todayDate", todayDate );
 
         request.setAttribute( FORMULAIRE, formulaire );
         request.setAttribute( EMPLOYE, employe );
@@ -205,21 +215,33 @@ public class EmployeServlet extends HttpServlet {
     @SuppressWarnings("unchecked")
 	private void listEmployes( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException, ParseException {
+
+        TraitementEmploye traitement = new TraitementEmploye();
+
         ArrayList<Employe> allEmployes = (ArrayList<Employe>) employeDao.getAll("from Employe");
 
         ArrayList<Employe> employes = new ArrayList<Employe>();
+
         ArrayList<Employe> suspendEmployes = new ArrayList<Employe>();
 
         Map<Integer, String> periodes = new HashMap<Integer, String>();
         System.out.println( employes.size() );
 
         for ( Employe employe : allEmployes ) {
-            String todayDate = getDate();
-            String period = compareDates( employe.getDate_debut(), todayDate );
+            String todayDate = traitement.getDate();
+            String period = traitement.compareDates( employe.getDate_debut(), todayDate );
             System.out.println( period );
 
             if ( employe.getIsConge() == 0 ) {
-                employes.add( employe );
+                boolean showPaymentButton = traitement.paymentAlert( employe.getDate_debut(), todayDate,
+                        employe.getMonthsNumber() );
+                if ( showPaymentButton == true && employe.getPaymentStatus() == 0 ) {
+                    employe.setShowPaymentOption( 1 );
+                    employes.add( employe );
+                } else {
+                    employe.setShowPaymentOption( 0 );
+                    employes.add( employe );
+                }
             } else {
                 suspendEmployes.add( employe );
             }
@@ -233,10 +255,28 @@ public class EmployeServlet extends HttpServlet {
         this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 
+    @SuppressWarnings("unchecked")
+	private void checkEmployes( HttpServletRequest request, HttpServletResponse response )
+            throws ServletException, IOException, ParseException {
+
+        TraitementEmploye traitement = new TraitementEmploye();
+
+        ArrayList<Employe> employes = (ArrayList<Employe>) employeDao.getAll("from Employe");
+
+        for ( Employe employe : employes ) {
+            String todayDate = traitement.getDate();
+            if ( traitement.paymentAlert( employe.getDate_debut(), todayDate,
+                    employe.getMonthsNumber() ) ) {
+                employe.setPaymentStatus( 0 );
+                employeDao.update( employe );
+            }
+        }
+    }
+
     private void listEmploye( HttpServletRequest request, HttpServletResponse response, String pageJsp )
             throws ServletException, IOException {
         int id = Integer.parseInt( request.getParameter( "id" ) );
-        Employe employe = (Employe) employeDao.getById(id);
+        Employe employe = (Employe) employeDao.getById( id );
 
         request.setAttribute( EMPLOYE, employe );
 
@@ -246,7 +286,22 @@ public class EmployeServlet extends HttpServlet {
     private void deleteEmploye( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
         int id = Integer.parseInt( request.getParameter( "id" ) );
-        employeDao.delete(id);
+        employeDao.delete( id );
+        response.sendRedirect( request.getContextPath() + "/" + EMPLOYE );
+    }
+
+    @SuppressWarnings("unchecked")
+	private void payerEmploye( HttpServletRequest request, HttpServletResponse response )
+            throws ServletException, IOException, ParseException {
+
+        TraitementEmploye traitement = new TraitementEmploye();
+
+        String todayDate = traitement.getDate();
+        int id = Integer.parseInt( request.getParameter( "id" ) );
+        Employe employe = (Employe) employeDao.getById( id );
+        employe.setPaymentStatus( 1 );
+        employe.setMonthsNumber( traitement.numberOfMonths( employe.getDate_debut(), todayDate ) );
+        employeDao.update( employe );
         response.sendRedirect( request.getContextPath() + "/" + EMPLOYE );
     }
 
@@ -254,9 +309,9 @@ public class EmployeServlet extends HttpServlet {
 	private void suspendEmploye( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
         int id = Integer.parseInt( request.getParameter( "id" ) );
-        Employe employe = (Employe) employeDao.getById(id);
+        Employe employe = (Employe) employeDao.getById( id );
         employe.setIsConge( 1 );
-        employeDao.update(employe);
+        employeDao.update( employe );
         response.sendRedirect( request.getContextPath() + "/" + EMPLOYE );
     }
 
@@ -264,38 +319,10 @@ public class EmployeServlet extends HttpServlet {
 	private void activateEmploye( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
         int id = Integer.parseInt( request.getParameter( "id" ) );
-        Employe employe = (Employe) employeDao.getById(id);
+        Employe employe = (Employe) employeDao.getById( id );
         employe.setIsConge( 0 );
-        employeDao.update(employe);
+        employeDao.update( employe );
         response.sendRedirect( request.getContextPath() + "/" + EMPLOYE );
-    }
-
-    private String compareDates( String Date1, String Date2 )
-            throws ParseException {
-
-        String[] parts = Date1.split( "-" );
-        int part1 = Integer.parseInt( parts[0] ); // days
-        int part2 = Integer.parseInt( parts[1] ); // months
-        int part3 = Integer.parseInt( parts[2] ); // years
-
-        LocalDate firstDate = LocalDate.of( part3, part2, part1 );
-
-        parts = Date2.split( "-" );
-        part1 = Integer.parseInt( parts[0] ); // days
-        part2 = Integer.parseInt( parts[1] ); // months
-        part3 = Integer.parseInt( parts[2] ); // years
-
-        LocalDate secondDate = LocalDate.of( part3, part2, part1 );
-
-        Period age = Period.between( firstDate, secondDate );
-
-        int years = age.getYears();
-        int months = age.getMonths();
-
-        String period = years + " years " + months + " months";
-
-        return period;
-
     }
 
 }

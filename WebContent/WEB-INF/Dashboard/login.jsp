@@ -64,7 +64,7 @@
 					                                    </div>
 					                                </div>
 				                            </c:if> 
-                                <form  method="post" action="login" id="signIn" novalidate>
+                                <form  method="post" action="<%=request.getContextPath()%>/login" id="signIn" novalidate>
                                     <div class="form-group p-1">
                                         <label for="username text-muted">
                                             <h6 class="text-grey"><i class="fas fa-user"></i> Email</h6>

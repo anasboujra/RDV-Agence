@@ -45,6 +45,7 @@
 		                                    <div class="alert ${empty formulaire.erreurs ? 'alert-success' : 'alert-danger'} text-center" role="alert">
 		                                        <c:out value="${formulaire.resultat }"/>
 		                                    </div>
+		                                    <input class="input--style-5" type="hidden" name="password" value="<c:out value="${employe.password }"/>">
 		                                </div>
 		                            </div>
 					            </div>
@@ -165,7 +166,7 @@
 				                <div class="name">Mot de passe</div>
 				                <div class="value">
 				                    <div class="input-group">
-				                        <input class="input--style-5" type="password" name="password" value="<c:out value="${employe.getPassword() }"/>">
+				                        <input class="input--style-5" type="password" name="password">
 				                    </div>
 				                </div>
 				            </div>
@@ -181,6 +182,8 @@
 	                                    </div>
 	                                </div>
 	                            </div>
+	                            
+	                            <input class="input--style-5" type="hidden" name="password" value="<c:out value="${employe.password }"/>">
                             </c:if>
                             
 				             <div class="form-row mb-4">
@@ -203,6 +206,7 @@
 	                                    </div>
 	                                </div>
 	                            </div>
+	                            <input class="input--style-5" type="hidden" name="password" value="<c:out value="${employe.password }"/>">
                             </c:if>
 				            
 				            <!-- start date hidden field -->

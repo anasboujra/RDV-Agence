@@ -38,6 +38,12 @@ public class Employe {
     private int    isAdmin;
     @Column( name = "isConge" )
     private int    isConge;
+    @Column( name = "nombre_de_mois" )
+    private int    monthsNumber;
+    @Column( name = "statut_payment" )
+    private int    paymentStatus;
+
+    private int    showPaymentOption;
 
     public Employe() {
         super();
@@ -158,6 +164,30 @@ public class Employe {
 
     public void setIsConge( int isConge ) {
         this.isConge = isConge;
+    }
+
+    public int getMonthsNumber() {
+        return monthsNumber;
+    }
+
+    public void setMonthsNumber( int monthsNumber ) {
+        this.monthsNumber = monthsNumber;
+    }
+
+    public int getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus( int paymentStatus ) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public int getShowPaymentOption() {
+        return showPaymentOption;
+    }
+
+    public void setShowPaymentOption( int showPaymentOption ) {
+        this.showPaymentOption = showPaymentOption;
     }
 
 }
