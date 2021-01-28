@@ -23,7 +23,7 @@
                             <div class="page-title-wrapper">
                                 <div class="page-title-heading">
                                     <div class="page-title-icon">
-                                        <i class="fas fa-edit"></i>
+                                        <i class="fab fa-buysellads"></i>
                                     </div>
                                     <div>Annonce</div>
                                 </div>

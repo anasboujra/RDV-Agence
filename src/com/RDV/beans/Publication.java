@@ -14,7 +14,7 @@ public class Publication {
 	
 	@Id
     @GeneratedValue( strategy = GenerationType.AUTO )
-    private int    id;
+    private int  id;
 	@Column(name="titre")
 	private String titre;
 	@Column(name="contenu")

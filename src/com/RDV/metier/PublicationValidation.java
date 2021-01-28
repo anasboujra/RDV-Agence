@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
  
 import com.RDV.Dao.PublicationDao;
@@ -40,7 +41,7 @@ public final class PublicationValidation {
     }
 
     public Publication creerPublication( HttpServletRequest request ) throws IOException, ServletException {
-    		
+    	HttpSession session = request.getSession();
     	Publication publication = new Publication();
     	
     	String titre = request.getParameter( CHAMP_TITRE );
@@ -72,8 +73,9 @@ public final class PublicationValidation {
  
   
          
-         publication.setIdEmploye(1);
+         publication.setIdEmploye((int) session.getAttribute("idEmploye"));
          
+          
           
          try {
         	 Part part = request.getPart(CHAMP_IMAGE);
@@ -148,11 +150,9 @@ public final class PublicationValidation {
          setErreur( CHAMP_CONTENU, e.getMessage() );
          }
          publication.setContenu(contenu);
-         
  
-  
          
-         publication.setIdEmploye(1);
+         publication.setIdEmploye(2);
 
  
  

@@ -23,8 +23,7 @@
 				        <div class="page-title-wrapper">
 				            <div class="page-title-heading">
 				                <div class="page-title-icon">
-				                    <i class="pe-7s-car icon-gradient bg-warm-flame">
-				                    </i>
+				                    <i class="fas fa-calendar-alt"></i>
 				                </div>
 				                <div>Calendrier
 				                    <div class="page-title-subheading">Le calendrier des réservations pour cette semaine
@@ -72,7 +71,7 @@
 	            </div>
 	            <form action="reservation" method="post">
 	            	<div class="modal-body">
-		     			<div class="position-relative form-group"><label>ID de la réservation *</label><input name="idReservation" type="text" value="1232" readonly class="form-control"></div>
+		     			<div class="position-relative form-group"><label>ID de la réservation *</label><input name="idReservation" type="text" value="13" readonly class="form-control"></div>
 		                <div class="position-relative form-group"><label>Date *</label><input name="date" type="date" value="<c:out value="${reservation.getDate() }"/>" class="form-control" required></div>
 		                <div class="position-relative form-group"><label>Heure *</label><input name="heure" type="time" value="<c:out value="${reservation.getHeure() }"/>" class="form-control" required></div>
 		                <div class="position-relative form-group"><label>CIN du client *</label><input name="cin" type="text" class="form-control" value="<c:out value="${reservation.getCin() }"/>" required></div>
@@ -87,7 +86,7 @@
               		</div>
 					<div class="modal-footer">
 		                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		                <button class="mt-1 btn btn-primary">Submit</button>
+		                <button type="submit" class="mt-1 btn btn-primary">Submit</button>
 		        	</div>
          		</form>    
        	   	</div>

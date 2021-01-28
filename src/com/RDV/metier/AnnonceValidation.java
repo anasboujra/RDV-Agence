@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.RDV.Dao.AnnonceDao;
@@ -69,8 +70,9 @@ public class AnnonceValidation {
          }
         annonce.setContenu(contenu);
         
-        
-        annonce.setIdEmploye(1);
+        HttpSession session = request.getSession();
+ 
+		annonce.setIdEmploye((int) session.getAttribute("idEmploye"));
         
         try {
        	 Part part = request.getPart(CHAMP_IMAGE);

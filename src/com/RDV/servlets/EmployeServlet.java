@@ -40,6 +40,8 @@ public class EmployeServlet extends HttpServlet {
 
     public void init() {
         employeDao = new EmployeDAO(Employe.class);
+        
+        
     }
 
     protected void doGet( HttpServletRequest request, HttpServletResponse response )

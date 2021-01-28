@@ -29,6 +29,7 @@ public class DashboardReservation extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		if(action==null) {
+			 
 			this.getServletContext().getRequestDispatcher("/WEB-INF/Dashboard/Reservation/reservation.jsp").forward(request, response);
 		}
 		else if(action.equals("acceptee")) {
@@ -56,7 +57,9 @@ public class DashboardReservation extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		if(action==null) {
+			System.out.println("Marhba bikom f Servlet POST");
 			ValidationReservation formulaire = new ValidationReservation();
+			System.out.println("AAAAAAA1");
 			Reservation reservation = formulaire.creerReservation(request);
 			if (formulaire.getErreurs().isEmpty()) {
 				reservationDAO.saveReservation(reservation);

@@ -4,7 +4,7 @@ package com.RDV.Dao;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
- 
+import org.hibernate.query.Query;
 
 import com.RDV.beans.Employe;
 import com.RDV.util.HibernateUtil;
@@ -52,5 +52,7 @@ public class EmployeDAO extends DaoFactory{
         }
         return null;
     }
+    
+
  
 }

@@ -69,6 +69,7 @@ public class DashboardLogin extends HttpServlet {
 
 			        if (employe != null) {
 			        	session.setAttribute(ATT_EMPLOYE, employe);
+			        	session.setAttribute("idEmploye", employe.getId());
 			        	//request.setAttribute(ATT_EMPLOYE, employe);
 			            RequestDispatcher dispatcher = request.getRequestDispatcher(VUE_SUCCES);
 			            dispatcher.forward(request, response);

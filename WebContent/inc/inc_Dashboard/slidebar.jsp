@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <div class="app-sidebar sidebar-shadow">
 
                   
@@ -39,34 +40,36 @@
                      <li class="app-sidebar__heading">Dashboard</li>
                      <li>
                          <a href="dashboard" class="mm-active">
-                             <i class="metismenu-icon pe-7s-rocket"></i>
-                             Dashboard RDV
+                             <i class="fas fa-home"></i>
+                             Acceuil
                          </a>
                      </li>
-                     <li class="app-sidebar__heading">Réservations</li>
+                     <li class="app-sidebar__heading">Reservation</li>
                      <li>
                          <a href="reservation">
-                             <i class="metismenu-icon pe-7s-rocket"></i>
-                             Gestion des Réservations
+                             <i class="fas fa-calendar-alt"></i>
+                             Reservation
                          </a>
                      </li>
-                     <li class="app-sidebar__heading">Gestion Employé</li>
+                     <c:if test="${employe.isAdmin=='1'}">
+                     <li class="app-sidebar__heading">Employe</li>
                      <li>
                          <a href="employe">
-                             <i class="metismenu-icon pe-7s-display2"></i>
-                             Afficher Employe
+                             <i class="fas fa-chalkboard-teacher"></i>
+                            Employe
                          </a>
                      </li>
+                     </c:if>
                      <li class="app-sidebar__heading">Publication</li>
                             <li>
                                 <a href="publication">
-                                    <i style="margin:10px;" class="fas fa-edit"></i>
+                                    <i   class="fas fa-edit"></i>
                                      Publication
                                 </a>
                             </li>
                             <li>
                                 <a href="annonce">
-                                    <i style="margin:10px;" class="fab fa-adversal"></i>
+                                    <i class="fab fa-buysellads"></i>
                                      Annonce
                                 </a>
                             </li>

@@ -19,34 +19,40 @@ public class Reservation {
     @GeneratedValue(strategy=GenerationType.AUTO)
 	private String idReservation;
 	@Column(name="date")
-	private LocalDate date;
+	private String date;
 	@Column(name="heure")
-	private LocalTime heure;
+	private String heure;
 	@Column(name="statut")
 	private String statut;
+	@Column(name="idClient")
+	private int idClient;
 	@Column(name="cin")
 	private String cin;
-	
-	public Reservation() {
+	public Reservation(String idReservation, String date, String heure, String statut, int idClient, String cin) {
 		super();
+		this.idReservation = idReservation;
+		this.date = date;
+		this.heure = heure;
+		this.statut = statut;
+		this.idClient = idClient;
+		this.cin = cin;
 	}
-	
 	public String getIdReservation() {
 		return idReservation;
 	}
 	public void setIdReservation(String idReservation) {
 		this.idReservation = idReservation;
 	}
-	public LocalDate getDate() {
+	public String getDate() {
 		return date;
 	}
-	public void setDate(LocalDate date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
-	public LocalTime getHeure() {
+	public String getHeure() {
 		return heure;
 	}
-	public void setHeure(LocalTime heure) {
+	public void setHeure(String heure) {
 		this.heure = heure;
 	}
 	public String getStatut() {
@@ -55,11 +61,24 @@ public class Reservation {
 	public void setStatut(String statut) {
 		this.statut = statut;
 	}
+	public int getIdClient() {
+		return idClient;
+	}
+	public void setIdClient(int idClient) {
+		this.idClient = idClient;
+	}
 	public String getCin() {
 		return cin;
 	}
 	public void setCin(String cin) {
 		this.cin = cin;
 	}
+	public Reservation() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+ 
+ 
 	
 }
