@@ -25,7 +25,7 @@ public class Dashboard extends HttpServlet {
 	private static final String SOMME_CONGE  = "somme";
 	private static final String PUB ="publications";
 	private static final String PUB_SOMME ="pubSomme";
-
+	private static final String URL_REDIRECTION = "/WEB-INF/Dashboard/login.jsp";
 	//private static final String PUB_FEV ="pubFevrier";
 	
 	private StatistiqueDao statistiqueDao;
@@ -53,19 +53,29 @@ public class Dashboard extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		HttpSession session = request.getSession();
-		/* Statistique Employe */
-		ArrayList<Integer> isConge = statistiqueDao.employe();
- 
-		session.setAttribute(SOMME_CONGE, isConge.get(0) + isConge.get(1));
+		String url = request.getParameter("url");
+		if(url=="logout") {
+			session.invalidate();
+			response.sendRedirect( URL_REDIRECTION );
+			
+		}
+		else {
+			/* Statistique Employe */
+			ArrayList<Integer> isConge = statistiqueDao.employe();
+	 
+			session.setAttribute(SOMME_CONGE, isConge.get(0) + isConge.get(1));
+			
+			session.setAttribute(STAT_CONGE, isConge);
+			
+			/* Statistique Publication */
+			ArrayList<Integer> result = statistiqueDao.publication();
+	 
+			session.setAttribute(PUB_SOMME, result.get(0) + result.get(1)+result.get(2)+result.get(3)+result.get(4)+result.get(5)+result.get(6)+result.get(7)+result.get(8)+result.get(9)+result.get(10)+result.get(11));
+			session.setAttribute(PUB, result);
+			this.getServletContext().getRequestDispatcher( VUE_DASHBOARD ).forward( request, response );
+		}
 		
-		session.setAttribute(STAT_CONGE, isConge);
 		
-		/* Statistique Publication */
-		ArrayList<Integer> result = statistiqueDao.publication();
- 
-		session.setAttribute(PUB_SOMME, result.get(0) + result.get(1)+result.get(2)+result.get(3)+result.get(4)+result.get(5)+result.get(6)+result.get(7)+result.get(8)+result.get(9)+result.get(10)+result.get(11));
-		session.setAttribute(PUB, result);
-		this.getServletContext().getRequestDispatcher( VUE_DASHBOARD ).forward( request, response );
 	}
 
 	/**
