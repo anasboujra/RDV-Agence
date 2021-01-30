@@ -54,7 +54,7 @@
                                             <div class="widget-subheading">Total  </div>
                                         </div>
                                         <div class="widget-content-right">
-                                            <div class="widget-numbers text-white"><span></span></div>
+                                            <div class="widget-numbers text-white"><span>${clientSomme}</span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -205,6 +205,11 @@ var chart3 = new Chart(ctx3, {
 });
 </script>
 <script>
+var listClient = [
+    <c:forEach items="${clients}" var="item">
+      '<c:out value="${item}" />',  
+    </c:forEach>
+ ];
 var ctx4 = document.getElementById('myChart4').getContext('2d');
 var chart4 = new Chart(ctx4, {
     // The type of chart we want to create
@@ -216,7 +221,7 @@ var chart4 = new Chart(ctx4, {
         datasets: [{
         	label:'Client',
             backgroundColor: 'rgb(0, 123, 255)',
-            data: [8,3,6,5,10,6,9,3,6,3,7,7]
+            data: [listClient[0],listClient[1],listClient[2],listClient[3],listClient[4],listClient[5],listClient[6],listClient[7],listClient[8],listClient[9],listClient[10],listClient[11]]
         }]
     },
 

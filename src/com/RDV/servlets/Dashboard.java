@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +24,8 @@ public class Dashboard extends HttpServlet {
 	private static final String SOMME_CONGE  = "somme";
 	private static final String PUB ="publications";
 	private static final String PUB_SOMME ="pubSomme";
+	private static final String CLIENTS ="clients";
+	private static final String CLIENT_SOMME ="clientSomme";
 	private static final String URL_REDIRECTION = "/WEB-INF/Dashboard/login.jsp";
 	//private static final String PUB_FEV ="pubFevrier";
 	
@@ -41,7 +42,7 @@ public class Dashboard extends HttpServlet {
     public void init() {
         statistiqueDao = new StatistiqueDao();
         System.out.println("Statistique Publication ");
-        statistiqueDao.publication();
+        //statistiqueDao.publication();
         
         
         
@@ -72,6 +73,12 @@ public class Dashboard extends HttpServlet {
 	 
 			session.setAttribute(PUB_SOMME, result.get(0) + result.get(1)+result.get(2)+result.get(3)+result.get(4)+result.get(5)+result.get(6)+result.get(7)+result.get(8)+result.get(9)+result.get(10)+result.get(11));
 			session.setAttribute(PUB, result);
+			
+			/*Statistique Client */
+			ArrayList<Integer> resultClient = statistiqueDao.client();
+			session.setAttribute(CLIENT_SOMME, resultClient.get(0)+resultClient.get(1)+resultClient.get(2)+resultClient.get(3)+resultClient.get(4)+resultClient.get(5)+resultClient.get(6)+resultClient.get(7)+resultClient.get(8)+resultClient.get(9)+resultClient.get(10)+resultClient.get(11));
+			session.setAttribute(CLIENTS, resultClient);
+			
 			this.getServletContext().getRequestDispatcher( VUE_DASHBOARD ).forward( request, response );
 		}
 		
