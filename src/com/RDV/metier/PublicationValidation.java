@@ -121,6 +121,8 @@ public final class PublicationValidation {
     /* Cette fonction pour valider les champs lors du modification */
 
     public Publication modifierPublication( HttpServletRequest request ) throws IOException, ServletException {
+    	HttpSession session = request.getSession();
+
         /* Récupération des champs du formulaire */
         int id = Integer.parseInt( request.getParameter(CHAMP_ID));
         String titre = request.getParameter( CHAMP_TITRE );
@@ -129,6 +131,8 @@ public final class PublicationValidation {
         String uploadPath = context.getRealPath( CHEMIN_IMAGE );
         System.out.println( CHEMIN_IMAGE );
         System.out.println( uploadPath );
+        String nomFichier = null;
+        InputStream contenuFichier = null;
  
         // String photoProfil = getValeurChamp( request, CHAMP_PHOTO_PROFIL );
 
@@ -152,7 +156,38 @@ public final class PublicationValidation {
          publication.setContenu(contenu);
  
          
-         publication.setIdEmploye(2);
+          
+		publication.setIdEmploye((int) session.getAttribute("idEmploye"));
+		
+		try {
+       	 Part part = request.getPart(CHAMP_IMAGE);
+
+            	nomFichier = part.getSubmittedFileName();
+
+         
+            if ( nomFichier != null && !nomFichier.isEmpty() ) {
+          
+                  
+                nomFichier = nomFichier.substring( nomFichier.lastIndexOf( '/' ) + 1 ).substring( nomFichier.lastIndexOf( '\\' ) + 1 );
+                
+                publication.setImage(nomFichier);	
+                
+                contenuFichier = part.getInputStream();
+
+            }
+        } catch ( IllegalStateException e ) {
+
+            e.printStackTrace();
+            setErreur( CHAMP_IMAGE, "Les données envoyées sont trop volumineuses." );
+        } catch ( IOException e ) {
+   
+            e.printStackTrace();
+            setErreur( CHAMP_IMAGE, "Erreur de configuration du serveur." );
+        } catch ( ServletException e ) {
+     
+            e.printStackTrace();
+            setErreur( CHAMP_IMAGE, "Ce type de requête n'est pas supporté, merci d'utiliser le formulaire prévu pour envoyer votre fichier." );
+        }
 
  
  
@@ -160,10 +195,12 @@ public final class PublicationValidation {
 
         /* Initialisation du résultat global de la validation. */
         if ( erreurs.isEmpty() ) {
-            resultat = "l'employé est modifié avec succès";
-        } else {
-            resultat = "Echec lors de la modification de l'employé";
-        }
+        	try {
+                ecrireFichier( contenuFichier, nomFichier, uploadPath );
+            } catch ( Exception e ) {
+                setErreur( CHAMP_IMAGE, "Erreur lors de l'écriture du fichier sur le disque." );
+            }
+        }  
 
         return publication;
     }

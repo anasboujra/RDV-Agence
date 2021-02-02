@@ -130,12 +130,11 @@ public class DaoFactory<T> implements DaoInterface<T> {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             // start a transaction
             transaction = session.beginTransaction();
-            // get an user object
-            System.out.println(table);
+ 
+           
             
-            System.out.println("Ana hona");
             items = (ArrayList<T>) session.createQuery(table).getResultList();
-            System.out.println("Ana hona2");
+       
             
             // commit transaction
             transaction.commit();

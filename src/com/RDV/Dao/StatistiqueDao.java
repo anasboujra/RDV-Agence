@@ -44,7 +44,7 @@ public class StatistiqueDao {
     
     @SuppressWarnings({ "unused"})
 	public ArrayList<Integer> publication(){
-    	System.out.println("Ana hnaaaa Statistique 1");
+    	
         Transaction transaction = null;
         Query query;
         Calendar calendar = Calendar.getInstance();

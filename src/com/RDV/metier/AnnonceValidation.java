@@ -76,57 +76,30 @@ public class AnnonceValidation {
         
         try {
        	 Part part = request.getPart(CHAMP_IMAGE);
-            /*
-             * Il faut déterminer s'il s'agit bien d'un champ de type fichier :
-             * on délègue cette opération à la méthode utilitaire
-             * getNomFichier().
-             */
+             
             nomFichier = part.getSubmittedFileName();
 
-            /*
-             * Si la méthode a renvoyé quelque chose, il s'agit donc d'un champ
-             * de type fichier (input type="file").
-             */
+            
             if ( nomFichier != null && !nomFichier.isEmpty() ) {
-                /*
-                 * Antibug pour Internet Explorer, qui transmet pour une raison
-                 * mystique le chemin du fichier local à la machine du client...
-                 * 
-                 * Ex : C:/dossier/sous-dossier/fichier.ext
-                 * 
-                 * On doit donc faire en sorte de ne sélectionner que le nom et
-                 * l'extension du fichier, et de se débarrasser du superflu.
-                 */
+                
+                  
                 nomFichier = nomFichier.substring( nomFichier.lastIndexOf( '/' ) + 1 ).substring( nomFichier.lastIndexOf( '\\' ) + 1 );
                 
                 annonce.setImage(nomFichier);	
-                /* Récupération du contenu du fichier */
+                 
                 contenuFichier = part.getInputStream();
 
             }
         } catch ( IllegalStateException e ) {
-            /*
-             * Exception retournée si la taille des données dépasse les limites
-             * définies dans la section <multipart-config> de la déclaration de
-             * notre servlet d'upload dans le fichier web.xml
-             */
+            
             e.printStackTrace();
             setErreur( CHAMP_IMAGE, "Les données envoyées sont trop volumineuses." );
         } catch ( IOException e ) {
-            /*
-             * Exception retournée si une erreur au niveau des répertoires de
-             * stockage survient (répertoire inexistant, droits d'accès
-             * insuffisants, etc.)
-             */
+             
             e.printStackTrace();
             setErreur( CHAMP_IMAGE, "Erreur de configuration du serveur." );
         } catch ( ServletException e ) {
-            /*
-             * Exception retournée si la requête n'est pas de type
-             * multipart/form-data. Cela ne peut arriver que si l'utilisateur
-             * essaie de contacter la servlet d'upload par un formulaire
-             * différent de celui qu'on lui propose... pirate ! :|
-             */
+            
             e.printStackTrace();
             setErreur( CHAMP_IMAGE, "Ce type de requête n'est pas supporté, merci d'utiliser le formulaire prévu pour envoyer votre fichier." );
         }
@@ -145,6 +118,8 @@ public class AnnonceValidation {
         String uploadPath = context.getRealPath( CHEMIN_IMAGE );
         System.out.println( CHEMIN_IMAGE );
         System.out.println( uploadPath );
+        String nomFichier = null;
+        InputStream contenuFichier = null;
  
         // String photoProfil = getValeurChamp( request, CHAMP_PHOTO_PROFIL );
 
@@ -170,20 +145,42 @@ public class AnnonceValidation {
  
   
          
-         annonce.setIdEmploye(1);
+         HttpSession session = request.getSession();
+         
+ 		annonce.setIdEmploye((int) session.getAttribute("idEmploye"));
 
  
- 
- 
+ 		try {
+ 	       	 Part part = request.getPart(CHAMP_IMAGE);
+ 	             
+ 	            nomFichier = part.getSubmittedFileName();
 
-        /* Initialisation du résultat global de la validation. */
-        if ( erreurs.isEmpty() ) {
-            resultat = "l'employé est modifié avec succès";
-        } else {
-            resultat = "Echec lors de la modification de l'employé";
-        }
+ 	            
+ 	            if ( nomFichier != null && !nomFichier.isEmpty() ) {
+ 	                
+ 	                  
+ 	                nomFichier = nomFichier.substring( nomFichier.lastIndexOf( '/' ) + 1 ).substring( nomFichier.lastIndexOf( '\\' ) + 1 );
+ 	                
+ 	                annonce.setImage(nomFichier);	
+ 	                 
+ 	                contenuFichier = part.getInputStream();
 
-        return annonce;
+ 	            }
+ 	        } catch ( IllegalStateException e ) {
+ 	            
+ 	            e.printStackTrace();
+ 	            setErreur( CHAMP_IMAGE, "Les données envoyées sont trop volumineuses." );
+ 	        } catch ( IOException e ) {
+ 	             
+ 	            e.printStackTrace();
+ 	            setErreur( CHAMP_IMAGE, "Erreur de configuration du serveur." );
+ 	        } catch ( ServletException e ) {
+ 	            
+ 	            e.printStackTrace();
+ 	            setErreur( CHAMP_IMAGE, "Ce type de requête n'est pas supporté, merci d'utiliser le formulaire prévu pour envoyer votre fichier." );
+ 	        }
+ 	        ecrireFichier( contenuFichier, nomFichier, uploadPath );
+ 	       return annonce;
     }
 	
     public void validationTitre(String titre) throws Exception
